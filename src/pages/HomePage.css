@@ -1,0 +1,7 @@
+.homepage {
+  min-height: 100vh;      /* full viewport height */
+  width: 100%;            /* span full width */
+  margin: 0;
+  background-color: #1D262D; /* dark background */
+  color: white;           /* default text color */
+}
