@@ -11,4 +11,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  assetsInclude: ['**/*.glb', '**/*.png'],
+  server: {
+    host: true, // or '0.0.0.0'
+  },
 })

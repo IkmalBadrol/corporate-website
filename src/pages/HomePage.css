@@ -4,4 +4,6 @@
   margin: 0;
   background-color: #1D262D; /* dark background */
   color: white;           /* default text color */
+  /*padding: clamp(12px, 2vw, 32px); /* responsive padding around the screen */
+  /*box-sizing: border-box;*/ /* include padding in width to prevent overflow */
 }

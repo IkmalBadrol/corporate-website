@@ -66,4 +66,6 @@ export default tseslint.config([
     },
   },
 ])
-```
+
+install lightswind package : npm i lightswind@latest
+```npx create-lightswind gradient-background
