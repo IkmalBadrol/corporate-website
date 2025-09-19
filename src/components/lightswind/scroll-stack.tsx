@@ -27,7 +27,7 @@ const defaultBackgrounds = [
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
   cards,
-  backgroundColor = "bg-background", // Changed default to "bg-background"
+  backgroundColor = defaultBackgrounds, // Changed default to "bg-background"
   cardHeight = "60vh",
   animationDuration = "0.5s",
   sectionHeightMultiplier = 3,

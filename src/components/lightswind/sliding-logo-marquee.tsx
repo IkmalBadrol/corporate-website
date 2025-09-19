@@ -227,7 +227,7 @@ export function SlidingLogoMarquee({
           animation-play-state: paused !important;
         }
 
-        @media (prefers-reduced-motion: no-preference) {
+
           [data-translate="items"] .sliding-marquee-list {
             gap: 0;
           }
@@ -255,7 +255,7 @@ export function SlidingLogoMarquee({
               translate: var(--destination-x) var(--destination-y);
             }
           }
-        }
+        
         `}
       </style>
 

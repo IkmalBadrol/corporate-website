@@ -29,7 +29,7 @@ export interface ScrollTimelineProps {
   lineColor?: string;
   activeColor?: string;
   progressIndicator?: boolean;
-  cardVariant?: "default" | "elevated" | "outlined" | "filled";
+  cardVariant?: "default" | "elevated" | "outlined" | "filled" | "glass";
   cardEffect?: "none" | "glow" | "shadow" | "bounce";
   parallaxIntensity?: number;
   progressLineWidth?: number;
@@ -190,6 +190,7 @@ export const ScrollTimeline = ({
       elevated: "bg-card border border-border/40 shadow-md",
       outlined: "bg-card/50 backdrop-blur border-2 border-primary/20",
       filled: "bg-primary/10 border border-primary/30",
+      glass: "",
     };
     const effectClasses = {
       none: "",
@@ -367,11 +368,11 @@ export const ScrollTimeline = ({
                     viewport={{ once: false, margin: "-100px" }}
                     style={parallaxIntensity > 0 ? { y: yOffset } : undefined}
                   >
-                    <Card className="bg-background border">
-                      <CardContent className="p-6">
+                    <Card className="bg-[rgba(255,255,255,0.08)] backdrop-blur-sm border border-white/10">
+                      <CardContent className="p-6 text-white">
                         {dateFormat === "badge" ? (
                           <div className="flex items-center mb-2">
-                            {event.icon || (
+                            {/* {event.icon || (
                               <Calendar className="h-4 w-4 mr-2 text-primary" />
                             )}
                             <span
@@ -383,7 +384,7 @@ export const ScrollTimeline = ({
                               )}
                             >
                               {event.year}
-                            </span>
+                            </span> */}
                           </div>
                         ) : (
                           <p className="text-lg font-bold text-primary mb-2">

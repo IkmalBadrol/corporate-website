@@ -1,9 +1,15 @@
 
-/* @import "tw-animate-css";
+/* @import "tw-animate-css"; */
 
 @plugin "tailwindcss-animate";
+@import 'tailwindcss';
+@plugin 'lightswind/plugin';
 
-@custom-variant dark (&:is(.dark *)); */
+@custom-variant dark (&:is(.dark *));
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -54,17 +60,17 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #11E5A3;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #11E5A3;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex;
+  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -86,7 +92,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #11E5A3;
 }
 button:focus,
 button:focus-visible {
@@ -95,7 +101,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #226bac;
     background-color: #ffffff;
   }
   a:hover {
@@ -105,10 +111,6 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -190,4 +192,5 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
 
