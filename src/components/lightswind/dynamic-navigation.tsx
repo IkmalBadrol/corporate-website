@@ -177,7 +177,7 @@ export const DynamicNavigation = ({
         }}
       ></div>
 
-      <li className="flex justify-between items-center gap-4 py-2 relative z-10 list-none">
+      <ul className="flex justify-between items-center gap-4 py-2 relative z-10 list-none">
         {links.map((link) => (
           <li
             key={link.id}
@@ -212,7 +212,7 @@ export const DynamicNavigation = ({
             </a>
           </li>
         ))}
-      </li>
+      </ul>
 
       <style
         dangerouslySetInnerHTML={{

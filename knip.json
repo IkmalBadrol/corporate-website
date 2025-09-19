@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignore": [
+    "**/*.d.ts",
+    "src/components/lightswind/**",
+    "src/components/card/**",
+    "src/components/buttons/**",
+    "src/components/navigations/**",
+    "src/components/hooks/**",
+    "src/lib/utils.ts"
+  ],
+  "ignoreDependencies": [
+    "@react-three/rapier",
+    "class-variance-authority", 
+    "gsap",
+    "lightswind",
+    "meshline"
+  ],
+  "ignoreExportsUsedInFile": true
+}

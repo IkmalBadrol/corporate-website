@@ -1,29 +1,29 @@
-import Aurora from "../components/backgrounds/Aurora";
+// import Aurora from "../components/backgrounds/Aurora";
 import ModelViewer from '../components/3Dmodel/ModelViewer';
 import ProfileCard  from '../components/card/ProfileCard';
-import StarBorder   from '../components/buttons/StarBorder';
-import CardSwap, { Card } from '../components/card/CardSwap'
-import SpotlightCard from '../components/card/SpotlightCard';
-import GooeyNav from '../components/navigations/GooeyNav';
+// import StarBorder   from '../components/buttons/StarBorder';
+// import CardSwap, { Card } from '../components/card/CardSwap'
+// import SpotlightCard from '../components/card/SpotlightCard';
+// import GooeyNav from '../components/navigations/GooeyNav';
 import AuroraShader from  '../components/lightswind/aurora-shader';
 import ParticlesBackground from '@/components/lightswind/particles-background';
-import { ShinyText } from "@/components/lightswind/shiny-text"
-import { InteractiveGradient } from "@/components/lightswind/interactive-gradient-card"
+import { ShinyText } from "@/components/lightswind/shiny-text";
+import { InteractiveGradient } from "@/components/lightswind/interactive-gradient-card";
 import { Iphone16Pro } from '@/components/lightswind/Iphone16Pro';
-import { ScrollTimeline } from "@/components/lightswind/scroll-timeline"
-import OrbitCard from '../components/lightswind/orbit-card';
-import TeamCarousel from  '../components/lightswind/team-carousel';
-import SparkleNavbar from  '../components/lightswind/sparkle-navbar';
+import { ScrollTimeline } from "@/components/lightswind/scroll-timeline";
 import { DynamicNavigation } from "@/components/lightswind/dynamic-navigation";
-import Lanyard from '../components/card/Lanyard';
-import GradientBackground from '../components/lightswind/gradient-background';
-import {SlidingLogoMarquee,  type SlidingLogoMarqueeItem } from "@/components/lightswind/sliding-logo-marquee"
+// import OrbitCard from '../components/lightswind/orbit-card';
+// import TeamCarousel from  '../components/lightswind/team-carousel';
+// import SparkleNavbar from  '../components/lightswind/sparkle-navbar';
+// import Lanyard from '../components/card/Lanyard';
+// import GradientBackground from '../components/lightswind/gradient-background';
+// import sinegyLogo from '../assets/sinegy_transparent.png'; 
+import {SlidingLogoMarquee,  type SlidingLogoMarqueeItem } from "@/components/lightswind/sliding-logo-marquee";
 import './HomePage.css';
-import sinegyLogo from '../assets/sinegy_transparent.png'; 
-import { Home, Crown, Phone, Users, Briefcase, Building, Shield, Zap, Globe, BarChart3 } from 'lucide-react';
+import { Home, Phone, Users, Briefcase, Building, Shield, Zap, Globe, BarChart3 } from 'lucide-react';
 import "../components/lightswind.css"
 
-import bitcoinModel from '/models/bitcoin.glb?url';
+import bitcoinModel from '../../models/bitcoin.glb?url';
 
 // Team member images
 import kelvynImg from '/src/assets/kel.png';
@@ -71,36 +71,36 @@ const teamMembers = [
     { id: "5", name: "John Doe", role: "Software Engineer", image: staff1Img, bio: "..." }
 ];
 
-  const orbitCards = [
-    {
-      icon: <Crown className="w-8 h-8 text-yellow-500 mb-3" />,
-      title: "Premium Access",
-      description: "Gain priority access to new ",
-      buttonText: "Upgrade Now",
-      buttonColor: "bg-blue-600 hover:bg-blue-700"
-    },
-    {
-      icon: <Shield className="w-8 h-8 text-green-500 mb-3" />,
-      title: "Enhanced Security",
-      description: "Multi-layer security protocols .",
-      buttonText: "Learn More",
-      buttonColor: "bg-green-600 hover:bg-green-700"
-    },
-    {
-      icon: <Zap className="w-8 h-8 text-purple-500 mb-3" />,
-      title: "Lightning Fast",
-      description: "High-speed trading engine capable .",
-      buttonText: "See Performance",
-      buttonColor: "bg-purple-600 hover:bg-purple-700"
-    },
-    {
-      icon: <Globe className="w-8 h-8 text-cyan-500 mb-3" />,
-      title: "Global Reach",
-      description: "Access to global markets with .",
-      buttonText: "Explore Markets",
-      buttonColor: "bg-cyan-600 hover:bg-cyan-700"
-    }
-  ];
+  // const orbitCards = [
+  //   {
+  //     icon: <Crown className="w-8 h-8 text-yellow-500 mb-3" />,
+  //     title: "Premium Access",
+  //     description: "Gain priority access to new ",
+  //     buttonText: "Upgrade Now",
+  //     buttonColor: "bg-blue-600 hover:bg-blue-700"
+  //   },
+  //   {
+  //     icon: <Shield className="w-8 h-8 text-green-500 mb-3" />,
+  //     title: "Enhanced Security",
+  //     description: "Multi-layer security protocols .",
+  //     buttonText: "Learn More",
+  //     buttonColor: "bg-green-600 hover:bg-green-700"
+  //   },
+  //   {
+  //     icon: <Zap className="w-8 h-8 text-purple-500 mb-3" />,
+  //     title: "Lightning Fast",
+  //     description: "High-speed trading engine capable .",
+  //     buttonText: "See Performance",
+  //     buttonColor: "bg-purple-600 hover:bg-purple-700"
+  //   },
+  //   {
+  //     icon: <Globe className="w-8 h-8 text-cyan-500 mb-3" />,
+  //     title: "Global Reach",
+  //     description: "Access to global markets with .",
+  //     buttonText: "Explore Markets",
+  //     buttonColor: "bg-cyan-600 hover:bg-cyan-700"
+  //   }
+  // ];
 
   const gradientCards = [
     {
@@ -384,7 +384,6 @@ const teamMembers = [
                 <Iphone16Pro
                   width={333}
                   height={682}
-                  src="/path/to/image.jpg"
                   videoSrc="src/assets/mobile_app_demo.MP4"
                   showIsland={true}
                   islandWidth={110}
