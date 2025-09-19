@@ -8,10 +8,10 @@ import HomePage from "./pages/HomePage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/corporate-website">
       <Routes>
         {/* Default page → HomePage (Aurora) */}
-        <Route path="/corporate-website" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
 
         {/* Old starter page */}
         <Route path="/app" element={<App />} />
