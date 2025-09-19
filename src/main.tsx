@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         {/* Default page → HomePage (Aurora) */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/corporate-website" element={<HomePage />} />
 
         {/* Old starter page */}
         <Route path="/app" element={<App />} />

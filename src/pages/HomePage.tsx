@@ -23,6 +23,26 @@ import sinegyLogo from '../assets/sinegy_transparent.png';
 import { Home, Crown, Phone, Users, Briefcase, Building, Shield, Zap, Globe, BarChart3 } from 'lucide-react';
 import "../components/lightswind.css"
 
+import bitcoinModel from '/models/bitcoin.glb?url';
+
+// Team member images
+import kelvynImg from '/src/assets/kel.png';
+import shenImg from '/src/assets/shen.png';
+import jackImg from '/src/assets/jack.png';
+import ikmalImg from '/src/assets/ikmal.jpg';
+import staff1Img from '/src/assets/staff1.png';
+
+// Logo images
+import bitcoinIcon from '/src/assets/bitcoin_icon.png';
+import ethIcon from '/src/assets/eth.png';
+import solIcon from '/src/assets/sol.png';
+import xrpIcon from '/src/assets/xrp.png';
+import adaIcon from '/src/assets/ada.png';
+
+// App store images
+import appStoreIcon from '/src/assets/appstore.svg';
+import playStoreIcon from '/src/assets/playstore.png';
+
 function HomePage() {
 
   const links = [
@@ -33,74 +53,23 @@ function HomePage() {
     { id: 'contact', label: 'Contact', href: '#contact', icon: <Phone /> }
   ];
 
-  const logos: SlidingLogoMarqueeItem[] = [
-    {
-      id: "1",
-      content: <img src="/src/assets/bitcoin_icon.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-    {
-      id: "2",
-      content: <img src="/src/assets/eth.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-    {
-      id: "3",
-      content: <img src="/src/assets/sol.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-    {
-      id: "4",
-      content: <img src="/src/assets/xrp.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-    {
-      id: "5",
-      content: <img src="/src/assets/ada.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-     {
-      id: "6",
-      content: <img src="/src/assets/bitcoin_icon.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-    {
-      id: "7",
-      content: <img src="/src/assets/eth.png" alt="Logo" className="h-[120px] w-[120px]" />
-    },
-  ];
+const logos: SlidingLogoMarqueeItem[] = [
+    { id: "1", content: <img src={bitcoinIcon} alt="Bitcoin" className="h-[120px] w-[120px]" /> },
+    { id: "2", content: <img src={ethIcon} alt="Ethereum" className="h-[120px] w-[120px]" /> },
+    { id: "3", content: <img src={solIcon} alt="Solana" className="h-[120px] w-[120px]" /> },
+    { id: "4", content: <img src={xrpIcon} alt="XRP" className="h-[120px] w-[120px]" /> },
+    { id: "5", content: <img src={adaIcon} alt="Cardano" className="h-[120px] w-[120px]" /> },
+    { id: "6", content: <img src={bitcoinIcon} alt="Bitcoin" className="h-[120px] w-[120px]" /> },
+    { id: "7", content: <img src={ethIcon} alt="Ethereum" className="h-[120px] w-[120px]" /> },
+];
 
-  const teamMembers = [
-    {
-      id: "1",
-      name: "Kelvyn Chuah",
-      role: "Managing Director",
-      image: "/src/assets/kel.png",
-      bio: "Visionary leader with 10+ years of experience."
-    },
-    {
-      id: "2",
-      name: "Shen Hoe Yeoh",
-      role: "Compliance Officer",
-      image: "/src/assets/shen.png",
-      bio: "Visionary leader with 10+ years of experience."
-    },
-    {
-      id: "3",
-      name: "Jack Chan",
-      role: "DAX Lead",
-      image: "/src/assets/jack.png",
-      bio: "Visionary leader with 10+ years of experience."
-    },
-    {
-      id: "4",
-      name: "Ikmal Badrol",
-      role: "Software Engineer",
-      image: "/src/assets/ikmal.jpg",
-      bio: "Visionary leader with 10+ years of experience."
-    },
-    {
-      id: "5",
-      name: "John Doe",
-      role: "Software Engineer",
-      image: "/src/assets/staff1.png",
-      bio: "Visionary leader with 10+ years of experience."
-    }
-  ];
+const teamMembers = [
+    { id: "1", name: "Kelvyn Chuah", role: "Managing Director", image: kelvynImg, bio: "..." },
+    { id: "2", name: "Shen Hoe Yeoh", role: "Compliance Officer", image: shenImg, bio: "..." },
+    { id: "3", name: "Jack Chan", role: "DAX Lead", image: jackImg, bio: "..." },
+    { id: "4", name: "Ikmal Badrol", role: "Software Engineer", image: ikmalImg, bio: "..." },
+    { id: "5", name: "John Doe", role: "Software Engineer", image: staff1Img, bio: "..." }
+];
 
   const orbitCards = [
     {
@@ -233,9 +202,9 @@ function HomePage() {
         <header id="home" className="w-full min-h-screen flex items-center justify-center">
           <div className="w-full flex flex-col items-center">
             <ModelViewer
-              url="/models/bitcoin.glb"
+              url={bitcoinModel} // Use the imported variable
               width={360}
-              height={360} 
+              height={360}
             />
             <ShinyText
               baseColor="rgba(255, 255, 255, 1)"
@@ -391,7 +360,7 @@ function HomePage() {
                     rel="noopener noreferrer"
                   >
                     <img 
-                      src="src/assets/appstore.svg" 
+                      src={appStoreIcon}
                       alt="Download on App Store" 
                       className="w-40 h-auto cursor-pointer hover:opacity-80 transition"
                     />
@@ -402,7 +371,7 @@ function HomePage() {
                     rel="noopener noreferrer"
                   >
                     <img 
-                      src="src/assets/playstore.png" 
+                      src={playStoreIcon}
                       alt="Download on Play Store" 
                       className="w-40 h-auto cursor-pointer hover:opacity-80 transition"
                     />
