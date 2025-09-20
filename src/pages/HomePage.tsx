@@ -23,7 +23,7 @@ import './HomePage.css';
 import { Home, Phone, Users, Briefcase, Building, Shield, Zap, Globe, BarChart3 } from 'lucide-react';
 import "../components/lightswind.css"
 
-import bitcoinModel from '../../models/bitcoin.glb?url';
+import bitcoinModel from '/models/bitcoin.glb?url';
 
 // Team member images
 import kelvynImg from '/src/assets/kel.png';

@@ -60,9 +60,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   title = 'Software Engineer',
   handle = 'javicodes',
   status = 'Online',
-  contactText = 'Contact',
+  // contactText = 'Contact',
   showUserInfo = true,
-  onContactClick
+
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -273,9 +273,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]
   );
 
-  const handleContactClick = useCallback(() => {
-    onContactClick?.();
-  }, [onContactClick]);
+  // const handleContactClick = useCallback(() => {
+  //   onContactClick?.();
+  // }, [onContactClick]);
 
   return (
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>

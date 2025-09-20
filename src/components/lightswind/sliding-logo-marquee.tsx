@@ -2,7 +2,6 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { cn } from "../lib/utils";
-import { Pause, Play } from "lucide-react";
 
 export interface SlidingLogoMarqueeItem {
   id: string;
@@ -49,11 +48,10 @@ export function SlidingLogoMarquee({
   onItemClick,
   enableSpillEffect = false,
   animationSteps = 8,
-  showControls = true,
 }: SlidingLogoMarqueeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -74,9 +72,9 @@ export function SlidingLogoMarquee({
     onItemClick?.(item);
   };
 
-  const togglePlayState = () => {
-    setIsPlaying(!isPlaying);
-  };
+  // const togglePlayState = () => {
+  //   setIsPlaying(!isPlaying);
+  // };
 
   const blurDivs = Array.from({ length: animationSteps }, (_, index) => (
     <div key={index} style={{ "--index": index } as React.CSSProperties} />

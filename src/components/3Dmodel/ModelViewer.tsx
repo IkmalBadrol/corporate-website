@@ -1,7 +1,7 @@
 import { type FC, Suspense, useRef, useLayoutEffect, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useLoader, useThree, invalidate } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useFBX, useProgress, Html, Environment, ContactShadows } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import * as THREE from 'three';
 
 export interface ViewerProps {
@@ -398,7 +398,7 @@ const ModelViewer: FC<ViewerProps> = ({
   environmentPreset = 'forest',
   autoFrame = false,
   placeholderSrc,
-  showScreenshotButton = true,
+  // showScreenshotButton = true,
   fadeIn = false,
   autoRotate = false,
   autoRotateSpeed = 0.35,
@@ -415,31 +415,31 @@ const ModelViewer: FC<ViewerProps> = ({
   const initPitch = deg2rad(defaultRotationY);
   const camZ = Math.min(Math.max(defaultZoom, minZoomDistance), maxZoomDistance);
 
-  const capture = () => {
-    const g = rendererRef.current,
-      s = sceneRef.current,
-      c = cameraRef.current;
-    if (!g || !s || !c) return;
-    g.shadowMap.enabled = false;
-    const tmp: { l: THREE.Light; cast: boolean }[] = [];
-    s.traverse((o: any) => {
-      if (o.isLight && 'castShadow' in o) {
-        tmp.push({ l: o, cast: o.castShadow });
-        o.castShadow = false;
-      }
-    });
-    if (contactRef.current) contactRef.current.visible = false;
-    g.render(s, c);
-    const urlPNG = g.domElement.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.download = 'model.png';
-    a.href = urlPNG;
-    a.click();
-    g.shadowMap.enabled = true;
-    tmp.forEach(({ l, cast }) => (l.castShadow = cast));
-    if (contactRef.current) contactRef.current.visible = true;
-    invalidate();
-  };
+  // const capture = () => {
+  //   const g = rendererRef.current,
+  //     s = sceneRef.current,
+  //     c = cameraRef.current;
+  //   if (!g || !s || !c) return;
+  //   g.shadowMap.enabled = false;
+  //   const tmp: { l: THREE.Light; cast: boolean }[] = [];
+  //   s.traverse((o: any) => {
+  //     if (o.isLight && 'castShadow' in o) {
+  //       tmp.push({ l: o, cast: o.castShadow });
+  //       o.castShadow = false;
+  //     }
+  //   });
+  //   if (contactRef.current) contactRef.current.visible = false;
+  //   g.render(s, c);
+  //   const urlPNG = g.domElement.toDataURL('image/png');
+  //   const a = document.createElement('a');
+  //   a.download = 'model.png';
+  //   a.href = urlPNG;
+  //   a.click();
+  //   g.shadowMap.enabled = true;
+  //   tmp.forEach(({ l, cast }) => (l.castShadow = cast));
+  //   if (contactRef.current) contactRef.current.visible = true;
+  //   invalidate();
+  // };
 
   return (
     <div

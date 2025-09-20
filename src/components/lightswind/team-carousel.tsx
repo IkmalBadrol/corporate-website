@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence, type TargetAndTransition} from 'framer-motion';
 import { cn } from '../lib/utils'; // Assuming this utility correctly merges class names
 
