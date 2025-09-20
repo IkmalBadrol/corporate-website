@@ -42,7 +42,7 @@ import adaIcon from '/src/assets/ada.png';
 // App store images
 import appStoreIcon from '/src/assets/appstore.svg';
 import playStoreIcon from '/src/assets/playstore.png';
-import mobileDemo from 'src/assets/mobile_app_demo.mp4';
+import mobileDemo from '/src/assets/mobile_app_demo.mp4';
 
 function HomePage() {
 
