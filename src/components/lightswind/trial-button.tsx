@@ -63,9 +63,9 @@ export const TrialButton: React.FC<TrialButtonProps> = ({
           background: conic-gradient(
               from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
               transparent,
-              blue var(--gradient-percent),
+              #11E5A3 var(--gradient-percent),
               var(--gradient-shine) calc(var(--gradient-percent) * 2),
-              blue calc(var(--gradient-percent) * 3),
+              #11E5A3 calc(var(--gradient-percent) * 3),
               transparent calc(var(--gradient-percent) * 4)
             )
             border-box;
@@ -127,7 +127,7 @@ export const TrialButton: React.FC<TrialButtonProps> = ({
           --animation: shimmer linear infinite;
           width: 100%;
           aspect-ratio: 1;
-          background: linear-gradient(-50deg, transparent, blue, transparent);
+          background: linear-gradient(-50deg, transparent, #11E5A3, transparent);
           mask-image: radial-gradient(circle at bottom, transparent 40%, black);
           opacity: 0.6;
           animation: var(--animation) var(--duration),
@@ -144,7 +144,7 @@ export const TrialButton: React.FC<TrialButtonProps> = ({
           --size: calc(100% + 1rem);
           width: var(--size);
           height: var(--size);
-          box-shadow: inset 0 -1ex 2rem 4px blue;
+          box-shadow: inset 0 -1ex 2rem 4px #11E5A3;
           opacity: 0;
           transition: opacity 800ms cubic-bezier(0.25, 1, 0.5, 1);
           animation: calc(var(--duration) * 1.5) breathe linear infinite;
@@ -198,7 +198,7 @@ export const TrialButton: React.FC<TrialButtonProps> = ({
           outline-offset-4
           py-[0.75rem] px-[1.25rem] /* Tailwind equivalent for padding */
            text-base leading-tight /* Font styles */
-          !rounded-full text-black dark:text-white /* Updated text colors */
+          !rounded-full text-white dark:text-white /* Updated text colors */
           bg-white dark:bg-black /* Requested background colors */
           active:translate-y-px /* Active state for a subtle press effect */
           flex items-center justify-center /* Center children */

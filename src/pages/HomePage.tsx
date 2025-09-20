@@ -12,6 +12,7 @@ import { InteractiveGradient } from "@/components/lightswind/interactive-gradien
 import { Iphone16Pro } from '@/components/lightswind/Iphone16Pro';
 import { ScrollTimeline } from "@/components/lightswind/scroll-timeline";
 import { DynamicNavigation } from "@/components/lightswind/dynamic-navigation";
+import { TrialButton } from '@/components/lightswind/trial-button';
 // import OrbitCard from '../components/lightswind/orbit-card';
 // import TeamCarousel from  '../components/lightswind/team-carousel';
 // import SparkleNavbar from  '../components/lightswind/sparkle-navbar';
@@ -322,11 +323,11 @@ const teamMembers = [
                   </div>
                 </div>
                 
-                <button className="bg-[#11E5A3] hover:bg-[#11E5A3] text-white font-semibold py-3 px-8 rounded-lg transition-colors">
-                  <a href="https://sinegy.com" target="_blank">
-                    Start Trading Now
-                  </a>
-                </button>
+                <TrialButton 
+                  onClick={() => window.open("https://sinegy.com", "_blank")}
+                >
+                  Start Trading Now
+                </TrialButton>
               </div>
             </div>
           </div>
@@ -562,12 +563,15 @@ const teamMembers = [
           <div className="w-full max-w-7xl mx-auto px-4">
             <div className="text-center border-t border-white/20 pt-8">
               <p className="text-white/60">
-                © 2024 SINEGY. All rights reserved.
+                Copyright © 2025 by SINEGY DAX Sdn.Bhd. © (1424796-U)
+              </p>
+              <p className="text-white/30">
+                All rights reserved.
               </p>
               <div className="flex justify-center space-x-6 mt-4">
-                <a href="#" className="text-white/60 hover:text-white transition-colors">Privacy</a>
-                <a href="#" className="text-white/60 hover:text-white transition-colors">Terms</a>
-                <a href="#" className="text-white/60 hover:text-white transition-colors">Contact</a>
+                <a href="https://exchange.sinegy.com/privacy-policy" className="text-white/60 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="https://exchange.sinegy.com/terms-of-service" className="text-white/60 hover:text-white transition-colors">Terms Of Service</a>
+                <a href="https://sinegyexchange.zendesk.com/hc/en-us/requests/new" className="text-white/60 hover:text-white transition-colors">Support</a>
               </div>
             </div>
           </div>
