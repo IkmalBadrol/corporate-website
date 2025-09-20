@@ -4315,7 +4315,183 @@ void main(){
         .animate-ripple {
           animation: ripple 0.6s linear;
         }
-`}})]})};function dJ({items:i,speed:e=60,pauseOnHover:t=!0,enableBlur:n=!0,blurIntensity:s=1,height:r="100px",width:a="100%",gap:l="0.5rem",scale:u=1,direction:h="horizontal",autoPlay:m=!0,backgroundColor:g,showGridBackground:v=!1,className:_,onItemClick:A,enableSpillEffect:T=!1,animationSteps:M=8}){const b=K.useRef(null),[C,B]=K.useState(m),[,D]=K.useState({width:0,height:0});K.useEffect(()=>{const F=()=>{if(b.current){const I=b.current.getBoundingClientRect();D({width:I.width,height:I.height})}};return F(),window.addEventListener("resize",F),()=>window.removeEventListener("resize",F)},[]);const U=F=>{F.href&&window.open(F.href,"_blank","noopener,noreferrer"),A?.(F)},N=Array.from({length:M},(F,I)=>te.jsx("div",{style:{"--index":I}},I));return te.jsxs(te.Fragment,{children:[te.jsx("style",{children:`
+`}})]})},dJ=({children:i,...e})=>te.jsxs(te.Fragment,{children:[te.jsx("style",{children:`
+        @import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,500&display=swap");
+
+        /* Custom CSS properties for animation */
+        @property --gradient-angle {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        @property --gradient-angle-offset {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        @property --gradient-percent {
+          syntax: "<percentage>";
+          initial-value: 5%;
+          inherits: false;
+        }
+
+        @property --gradient-shine {
+          syntax: "<color>";
+          initial-value: white;
+          inherits: false;
+        }
+
+        /* Base styles for the button, handling the conic gradient border and pseudo-elements */
+        .shiny-custom-styles {
+          /* Custom properties */
+          --animation: gradient-angle linear infinite;
+          --duration: 3s;
+          --shadow-size: 2px; /* Used by ::before */
+
+          /* Conic gradient border background */
+          border: 1px solid transparent; /* Required for border-box background-clip */
+          background: conic-gradient(
+              from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+              transparent,
+              #11E5A3 var(--gradient-percent),
+              var(--gradient-shine) calc(var(--gradient-percent) * 2),
+              #11E5A3 calc(var(--gradient-percent) * 3),
+              transparent calc(var(--gradient-percent) * 4)
+            )
+            border-box;
+          box-shadow: inset 0 0 0 1px #1a1818; /* Inner shadow */
+
+          /* Transitions for custom properties on hover/focus */
+          transition: --gradient-angle-offset 800ms cubic-bezier(0.25, 1, 0.5, 1),
+                      --gradient-percent 800ms cubic-bezier(0.25, 1, 0.5, 1),
+                      --gradient-shine 800ms cubic-bezier(0.25, 1, 0.5, 1);
+
+          /* Apply base animation */
+          animation: var(--animation) var(--duration);
+          animation-composition: add; /* Allows multiple animations to combine */
+        }
+
+        /* Pseudo-elements common styles */
+        .shiny-custom-styles::before,
+        .shiny-custom-styles::after,
+        .shiny-custom-styles span::before {
+          content: "";
+          pointer-events: none;
+          position: absolute;
+          inset-inline-start: 50%;
+          inset-block-start: 50%;
+          translate: -50% -50%;
+          z-index: -1;
+        }
+
+        /* Dots pattern for ::before */
+        .shiny-custom-styles::before {
+          --size: calc(100% - var(--shadow-size) * 3);
+          --position: 2px;
+          --space: calc(var(--position) * 2);
+          width: var(--size);
+          height: var(--size);
+          background: radial-gradient(
+              circle at var(--position) var(--position),
+              white calc(var(--position) / 4),
+              transparent 0
+            )
+            padding-box;
+          background-size: var(--space) var(--space);
+          background-repeat: space;
+          mask-image: conic-gradient(
+            from calc(var(--gradient-angle) + 45deg),
+            black,
+            transparent 10% 90%,
+            black
+          );
+          border-radius: inherit;
+          opacity: 0.8;
+          z-index: -1;
+          animation: var(--animation) var(--duration);
+          animation-composition: add;
+        }
+
+        /* Inner shimmer for ::after */
+        .shiny-custom-styles::after {
+          --animation: shimmer linear infinite;
+          width: 100%;
+          aspect-ratio: 1;
+          background: linear-gradient(-50deg, transparent, #11E5A3, transparent);
+          mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+          opacity: 0.6;
+          animation: var(--animation) var(--duration),
+                     var(--animation) calc(var(--duration) / 0.4) reverse paused;
+          animation-composition: add;
+        }
+
+        .shiny-custom-styles span {
+          z-index: 1;
+        }
+
+        /* Span's ::before for an additional glow effect */
+        .shiny-custom-styles span::before {
+          --size: calc(100% + 1rem);
+          width: var(--size);
+          height: var(--size);
+          box-shadow: inset 0 -1ex 2rem 4px #11E5A3;
+          opacity: 0;
+          transition: opacity 800ms cubic-bezier(0.25, 1, 0.5, 1);
+          animation: calc(var(--duration) * 1.5) breathe linear infinite;
+        }
+
+        /* Hover/Focus states for animations and custom properties */
+        .shiny-custom-styles:is(:hover, :focus-visible) {
+          --gradient-percent: 20%;
+          --gradient-angle-offset: 95deg;
+          --gradient-shine: #8484ff; /* Light blue shine on hover */
+          animation-play-state: running;
+        }
+
+        .shiny-custom-styles:is(:hover, :focus-visible)::before,
+        .shiny-custom-styles:is(:hover, :focus-visible)::after {
+          animation-play-state: running;
+        }
+
+        .shiny-custom-styles:is(:hover, :focus-visible) span::before {
+          opacity: 1;
+        }
+
+        /* Keyframe animations */
+        @keyframes gradient-angle {
+          to {
+            --gradient-angle: 360deg;
+          }
+        }
+
+        @keyframes shimmer {
+          to {
+            rotate: 360deg;
+          }
+        }
+
+        @keyframes breathe {
+          from, to {
+            scale: 1;
+          }
+          50% {
+            scale: 1.2;
+          }
+        }
+        `}),te.jsx("button",{className:` backdrop-blur-md !font-bold\r
+          shiny-custom-styles /* Apply custom gradient and animation styles */\r
+          isolate relative overflow-hidden cursor-pointer\r
+          outline-offset-4\r
+          py-[0.75rem] px-[1.25rem] /* Tailwind equivalent for padding */\r
+           text-base leading-tight /* Font styles */\r
+          !rounded-full text-white dark:text-white /* Updated text colors */\r
+          bg-white dark:bg-black /* Requested background colors */\r
+          active:translate-y-px /* Active state for a subtle press effect */\r
+          flex items-center justify-center /* Center children */\r
+        \r
+`,...e,children:te.jsx("span",{className:"",children:i})})]});function pJ({items:i,speed:e=60,pauseOnHover:t=!0,enableBlur:n=!0,blurIntensity:s=1,height:r="100px",width:a="100%",gap:l="0.5rem",scale:u=1,direction:h="horizontal",autoPlay:m=!0,backgroundColor:g,showGridBackground:v=!1,className:_,onItemClick:A,enableSpillEffect:T=!1,animationSteps:M=8}){const b=K.useRef(null),[C,B]=K.useState(m),[,D]=K.useState({width:0,height:0});K.useEffect(()=>{const F=()=>{if(b.current){const I=b.current.getBoundingClientRect();D({width:I.width,height:I.height})}};return F(),window.addEventListener("resize",F),()=>window.removeEventListener("resize",F)},[]);const U=F=>{F.href&&window.open(F.href,"_blank","noopener,noreferrer"),A?.(F)},N=Array.from({length:M},(F,I)=>te.jsx("div",{style:{"--index":I}},I));return te.jsxs(te.Fragment,{children:[te.jsx("style",{children:`
         .sliding-marquee-container {
           --speed: ${e};
           --count: ${i.length};
@@ -4491,84 +4667,84 @@ void main(){
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const pJ=i=>i.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase(),mJ=i=>i.replace(/^([A-Z])|[\s-_]+(\w)/g,(e,t,n)=>n?n.toUpperCase():t.toLowerCase()),CB=i=>{const e=mJ(i);return e.charAt(0).toUpperCase()+e.slice(1)},BU=(...i)=>i.filter((e,t,n)=>!!e&&e.trim()!==""&&n.indexOf(e)===t).join(" ").trim(),gJ=i=>{for(const e in i)if(e.startsWith("aria-")||e==="role"||e==="title")return!0};/**
+ */const mJ=i=>i.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase(),gJ=i=>i.replace(/^([A-Z])|[\s-_]+(\w)/g,(e,t,n)=>n?n.toUpperCase():t.toLowerCase()),CB=i=>{const e=gJ(i);return e.charAt(0).toUpperCase()+e.slice(1)},BU=(...i)=>i.filter((e,t,n)=>!!e&&e.trim()!==""&&n.indexOf(e)===t).join(" ").trim(),vJ=i=>{for(const e in i)if(e.startsWith("aria-")||e==="role"||e==="title")return!0};/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */var vJ={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
+ */var yJ={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const yJ=K.forwardRef(({color:i="currentColor",size:e=24,strokeWidth:t=2,absoluteStrokeWidth:n,className:s="",children:r,iconNode:a,...l},u)=>K.createElement("svg",{ref:u,...vJ,width:e,height:e,stroke:i,strokeWidth:n?Number(t)*24/Number(e):t,className:BU("lucide",s),...!r&&!gJ(l)&&{"aria-hidden":"true"},...l},[...a.map(([h,m])=>K.createElement(h,m)),...Array.isArray(r)?r:[r]]));/**
+ */const xJ=K.forwardRef(({color:i="currentColor",size:e=24,strokeWidth:t=2,absoluteStrokeWidth:n,className:s="",children:r,iconNode:a,...l},u)=>K.createElement("svg",{ref:u,...yJ,width:e,height:e,stroke:i,strokeWidth:n?Number(t)*24/Number(e):t,className:BU("lucide",s),...!r&&!vJ(l)&&{"aria-hidden":"true"},...l},[...a.map(([h,m])=>K.createElement(h,m)),...Array.isArray(r)?r:[r]]));/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const Sa=(i,e)=>{const t=K.forwardRef(({className:n,...s},r)=>K.createElement(yJ,{ref:r,iconNode:e,className:BU(`lucide-${pJ(CB(i))}`,`lucide-${i}`,n),...s}));return t.displayName=CB(i),t};/**
+ */const Sa=(i,e)=>{const t=K.forwardRef(({className:n,...s},r)=>K.createElement(xJ,{ref:r,iconNode:e,className:BU(`lucide-${mJ(CB(i))}`,`lucide-${i}`,n),...s}));return t.displayName=CB(i),t};/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const xJ=[["path",{d:"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16",key:"jecpp"}],["rect",{width:"20",height:"14",x:"2",y:"6",rx:"2",key:"i6l2r4"}]],_J=Sa("briefcase",xJ);/**
+ */const _J=[["path",{d:"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16",key:"jecpp"}],["rect",{width:"20",height:"14",x:"2",y:"6",rx:"2",key:"i6l2r4"}]],AJ=Sa("briefcase",_J);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const AJ=[["path",{d:"M12 10h.01",key:"1nrarc"}],["path",{d:"M12 14h.01",key:"1etili"}],["path",{d:"M12 6h.01",key:"1vi96p"}],["path",{d:"M16 10h.01",key:"1m94wz"}],["path",{d:"M16 14h.01",key:"1gbofw"}],["path",{d:"M16 6h.01",key:"1x0f13"}],["path",{d:"M8 10h.01",key:"19clt8"}],["path",{d:"M8 14h.01",key:"6423bh"}],["path",{d:"M8 6h.01",key:"1dz90k"}],["path",{d:"M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3",key:"cabbwy"}],["rect",{x:"4",y:"2",width:"16",height:"20",rx:"2",key:"1uxh74"}]],bJ=Sa("building",AJ);/**
+ */const bJ=[["path",{d:"M12 10h.01",key:"1nrarc"}],["path",{d:"M12 14h.01",key:"1etili"}],["path",{d:"M12 6h.01",key:"1vi96p"}],["path",{d:"M16 10h.01",key:"1m94wz"}],["path",{d:"M16 14h.01",key:"1gbofw"}],["path",{d:"M16 6h.01",key:"1x0f13"}],["path",{d:"M8 10h.01",key:"19clt8"}],["path",{d:"M8 14h.01",key:"6423bh"}],["path",{d:"M8 6h.01",key:"1dz90k"}],["path",{d:"M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3",key:"cabbwy"}],["rect",{x:"4",y:"2",width:"16",height:"20",rx:"2",key:"1uxh74"}]],SJ=Sa("building",bJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const SJ=[["path",{d:"M3 3v16a2 2 0 0 0 2 2h16",key:"c24i48"}],["path",{d:"M18 17V9",key:"2bz60n"}],["path",{d:"M13 17V5",key:"1frdt8"}],["path",{d:"M8 17v-3",key:"17ska0"}]],MJ=Sa("chart-column",SJ);/**
+ */const MJ=[["path",{d:"M3 3v16a2 2 0 0 0 2 2h16",key:"c24i48"}],["path",{d:"M18 17V9",key:"2bz60n"}],["path",{d:"M13 17V5",key:"1frdt8"}],["path",{d:"M8 17v-3",key:"17ska0"}]],EJ=Sa("chart-column",MJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const EJ=[["path",{d:"M10.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.5",key:"1g2yzs"}],["path",{d:"m14.3 19.6 1-.4",key:"11sv9r"}],["path",{d:"M15 3v7.5",key:"7lm50a"}],["path",{d:"m15.2 16.9-.9-.3",key:"1t7mvx"}],["path",{d:"m16.6 21.7.3-.9",key:"1j67ps"}],["path",{d:"m16.8 15.3-.4-1",key:"1ei7r6"}],["path",{d:"m19.1 15.2.3-.9",key:"18r7jp"}],["path",{d:"m19.6 21.7-.4-1",key:"z2vh2"}],["path",{d:"m20.7 16.8 1-.4",key:"19m87a"}],["path",{d:"m21.7 19.4-.9-.3",key:"1qgwi9"}],["path",{d:"M9 3v18",key:"fh3hqa"}],["circle",{cx:"18",cy:"18",r:"3",key:"1xkwt0"}]],TJ=Sa("columns-3-cog",EJ);/**
+ */const TJ=[["path",{d:"M10.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.5",key:"1g2yzs"}],["path",{d:"m14.3 19.6 1-.4",key:"11sv9r"}],["path",{d:"M15 3v7.5",key:"7lm50a"}],["path",{d:"m15.2 16.9-.9-.3",key:"1t7mvx"}],["path",{d:"m16.6 21.7.3-.9",key:"1j67ps"}],["path",{d:"m16.8 15.3-.4-1",key:"1ei7r6"}],["path",{d:"m19.1 15.2.3-.9",key:"18r7jp"}],["path",{d:"m19.6 21.7-.4-1",key:"z2vh2"}],["path",{d:"m20.7 16.8 1-.4",key:"19m87a"}],["path",{d:"m21.7 19.4-.9-.3",key:"1qgwi9"}],["path",{d:"M9 3v18",key:"fh3hqa"}],["circle",{cx:"18",cy:"18",r:"3",key:"1xkwt0"}]],CJ=Sa("columns-3-cog",TJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const CJ=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20",key:"13o1zl"}],["path",{d:"M2 12h20",key:"9i4pu4"}]],wJ=Sa("globe",CJ);/**
+ */const wJ=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20",key:"13o1zl"}],["path",{d:"M2 12h20",key:"9i4pu4"}]],RJ=Sa("globe",wJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const RJ=[["path",{d:"m11 17 2 2a1 1 0 1 0 3-3",key:"efffak"}],["path",{d:"m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4",key:"9pr0kb"}],["path",{d:"m21 3 1 11h-2",key:"1tisrp"}],["path",{d:"M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3",key:"1uvwmv"}],["path",{d:"M3 4h8",key:"1ep09j"}]],BJ=Sa("handshake",RJ);/**
+ */const BJ=[["path",{d:"m11 17 2 2a1 1 0 1 0 3-3",key:"efffak"}],["path",{d:"m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4",key:"9pr0kb"}],["path",{d:"m21 3 1 11h-2",key:"1tisrp"}],["path",{d:"M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3",key:"1uvwmv"}],["path",{d:"M3 4h8",key:"1ep09j"}]],DJ=Sa("handshake",BJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const DJ=[["path",{d:"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8",key:"1357e3"}],["path",{d:"M3 3v5h5",key:"1xhq8a"}],["path",{d:"M12 7v5l4 2",key:"1fdv2h"}]],LJ=Sa("history",DJ);/**
+ */const LJ=[["path",{d:"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8",key:"1357e3"}],["path",{d:"M3 3v5h5",key:"1xhq8a"}],["path",{d:"M12 7v5l4 2",key:"1fdv2h"}]],NJ=Sa("history",LJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const NJ=[["path",{d:"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8",key:"5wwlr5"}],["path",{d:"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",key:"r6nss1"}]],UJ=Sa("house",NJ);/**
+ */const UJ=[["path",{d:"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8",key:"5wwlr5"}],["path",{d:"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",key:"r6nss1"}]],OJ=Sa("house",UJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const OJ=[["path",{d:"M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",key:"zw3jo"}],["path",{d:"M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12",key:"1wduqc"}],["path",{d:"M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",key:"kqbvx6"}]],IJ=Sa("layers",OJ);/**
+ */const IJ=[["path",{d:"M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",key:"zw3jo"}],["path",{d:"M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12",key:"1wduqc"}],["path",{d:"M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",key:"kqbvx6"}]],PJ=Sa("layers",IJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const PJ=[["path",{d:"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",key:"9njp5v"}]],FJ=Sa("phone",PJ);/**
+ */const FJ=[["path",{d:"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",key:"9njp5v"}]],zJ=Sa("phone",FJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const zJ=[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",key:"oel41y"}]],HJ=Sa("shield",zJ);/**
+ */const HJ=[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",key:"oel41y"}]],GJ=Sa("shield",HJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const GJ=[["path",{d:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",key:"1yyitq"}],["path",{d:"M16 3.128a4 4 0 0 1 0 7.744",key:"16gr8j"}],["path",{d:"M22 21v-2a4 4 0 0 0-3-3.87",key:"kshegd"}],["circle",{cx:"9",cy:"7",r:"4",key:"nufk8"}]],VJ=Sa("users",GJ);/**
+ */const VJ=[["path",{d:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",key:"1yyitq"}],["path",{d:"M16 3.128a4 4 0 0 1 0 7.744",key:"16gr8j"}],["path",{d:"M22 21v-2a4 4 0 0 0-3-3.87",key:"kshegd"}],["circle",{cx:"9",cy:"7",r:"4",key:"nufk8"}]],kJ=Sa("users",VJ);/**
  * @license lucide-react v0.543.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const kJ=[["path",{d:"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",key:"1xq2db"}]],XJ=Sa("zap",kJ),jJ="/corporate-website/models/bitcoin.glb",YJ="/corporate-website/assets/kel-BYi7SzCd.png",qJ="/corporate-website/assets/shen-DJKTaP37.png",WJ="/corporate-website/assets/jack-BYRkACFh.png",KJ="/corporate-website/assets/ikmal-BGbFDIob.jpg",JJ="/corporate-website/assets/staff1-CPkEBZac.png",wB="/corporate-website/assets/bitcoin-D_-CM3mV.png",RB="/corporate-website/assets/ethereum-B6eb1r9z.png",ZJ="/corporate-website/assets/solana-CRp7GozI.png",QJ="/corporate-website/assets/ripple-Dbv5I0ha.png",$J="/corporate-website/assets/cardano-B38Ij7H1.png",eZ="/corporate-website/assets/appstore-CVyK0T4N.svg",tZ="/corporate-website/assets/playstore-XvR5LaEp.png",nZ="/corporate-website/assets/mobile_app_demo-L4E7ZPmf.MP4";function iZ(){const i=[{id:"home",label:"Home",href:"#home",icon:te.jsx(UJ,{})},{id:"team",label:"Team",href:"#team",icon:te.jsx(VJ,{})},{id:"products",label:"Products",href:"#products",icon:te.jsx(_J,{})},{id:"organization",label:"Organization",href:"#organization",icon:te.jsx(bJ,{})},{id:"contact",label:"Contact",href:"#contact",icon:te.jsx(FJ,{})}],e=[{id:"1",content:te.jsx("img",{src:wB,alt:"Bitcoin",className:"h-[120px] w-[120px]"})},{id:"2",content:te.jsx("img",{src:RB,alt:"Ethereum",className:"h-[120px] w-[120px]"})},{id:"3",content:te.jsx("img",{src:ZJ,alt:"Solana",className:"h-[120px] w-[120px]"})},{id:"4",content:te.jsx("img",{src:QJ,alt:"XRP",className:"h-[120px] w-[120px]"})},{id:"5",content:te.jsx("img",{src:$J,alt:"Cardano",className:"h-[120px] w-[120px]"})},{id:"6",content:te.jsx("img",{src:wB,alt:"Bitcoin",className:"h-[120px] w-[120px]"})},{id:"7",content:te.jsx("img",{src:RB,alt:"Ethereum",className:"h-[120px] w-[120px]"})}],t=[{id:"1",name:"Kelvyn Chuah",role:"Managing Director",image:YJ,bio:"..."},{id:"2",name:"Shen Hoe Yeoh",role:"Compliance Officer",image:qJ,bio:"..."},{id:"3",name:"Jack Chan",role:"DAX Lead",image:WJ,bio:"..."},{id:"4",name:"Ikmal Badrol",role:"Software Engineer",image:KJ,bio:"..."},{id:"5",name:"John Doe",role:"Software Engineer",image:JJ,bio:"..."}],n=[{title:"Tiered KYC",description:"Choose Basic, Intermediate or Premium",icon:te.jsx(IJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"},{title:"Highly Customizable",description:"Choose as many (or as few) trading modules as desired from our comprehensive list",icon:te.jsx(TJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"},{title:"Real-time performance",description:"With live market data fed into a fast and responsive UI",icon:te.jsx(LJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"},{title:"Regulated & Secure",description:"Your funds and digital assets are handled in compliance with local regulations to ensure safety and transparency.",icon:te.jsx(BJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"}],s=[{year:"Step 1",title:"Verify Your Account",subtitle:"Referral Program Requirement",description:"Complete your KYC—only verified personal accounts can participate."},{year:"Step 2",title:"Share Your Link",subtitle:"How to Refer",description:"Grab your unique referral URL or code from the Rewards tab and send it to anyone."},{year:"Step 3",title:"Tier 1: Your Direct Referrals",subtitle:"Earning Structure",description:"You receive 25% of the trading fees generated by anyone who signs up with your link."},{year:"Step 4",title:"Tier 2: Referrals of Your Referrals",subtitle:"Earning Structure",description:"Earn 10% of the fees from trades made by users brought in by your Tier 1 connections."},{year:"Step 5",title:"Tier 3: Extended Network",subtitle:"Earning Structure",description:"Collect 5% of trading fees from one more level out—your Tier 2's referrals."},{year:"Step 6",title:"Automatic Payouts",subtitle:"Commission Details",description:"Commissions are credited in real time to your SINEGY wallet—no thresholds, no waiting."}];return te.jsxs("div",{className:"homepage",children:[te.jsx(gX,{colorStops:["#11E5A3","#1D262D","#11E5A3"],amplitude:1,blend:.5,speed:1}),te.jsxs("div",{className:"relative z-10 flex flex-col min-h-screen",children:[te.jsx("div",{className:"relative z-20 max-w-3xl mx-auto w-full px-4 py-6",children:te.jsx(hJ,{links:i,glowIntensity:5,backgroundColor:"rgba(255,255,255,0.08)",className:"border-[rgba(255,255,255,0.08)]",onLinkClick:r=>{const a=document.getElementById(r);a&&(a.scrollIntoView({behavior:"smooth"}),window.location.hash=r)}})}),te.jsx("header",{id:"home",className:"w-full min-h-screen flex items-center justify-center",children:te.jsxs("div",{className:"w-full flex flex-col items-center",children:[te.jsx(Ik,{url:jJ,width:360,height:360}),te.jsx(sJ,{baseColor:"rgba(255, 255, 255, 1)",shineColor:"#DCE667",speed:5,className:"text-[90px] font-bold mb-4",children:"sinegy"}),te.jsx("p",{className:"text-lg md:text-xl text-white/80 max-w-4xl text-center px-4",children:"SINEGY is a Malaysian homegrown, fully regulated digital asset exchange (DAX), committed to delivering secure, transparent and accessible cryptocurrency trading. With oversight by the Securities Commission of Malaysia, we serve both retail and institutional clients with robust infrastructure, intuitive tools, and support for fiat-on-ramps in MYR. Built for security, simplicity, and trust, SINEGY empowers users to trade major digital assets with confidence."}),te.jsx("h2",{className:"text-3xl font-bold text-center text-[#11E5A3] mt-12",children:"Listed Coins: "}),te.jsx("div",{className:"w-full overflow-x-hidden mt-6",children:te.jsx(dJ,{items:e,speed:40,height:"150px",enableBlur:!1,blurIntensity:2,pauseOnHover:!0,showGridBackground:!0,onItemClick:r=>console.log("Clicked:",r.id)})})]})}),te.jsx("section",{className:"w-full py-16 md:py-24",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch",children:[" ",te.jsxs("div",{className:"grid grid-cols-2 gap-6 h-full",children:[" ",n.map((r,a)=>te.jsxs("div",{className:"w-full h-full",children:[" ",te.jsx(rJ,{color:r.color,glowColor:r.glowColor,followMouse:!0,hoverOnly:!1,intensity:80,backgroundColor:"rgba(255,255,255,0.08)",width:"100%",height:"100%",borderRadius:"1.5rem",className:"h-full",children:te.jsxs("div",{className:"p-6 text-white flex flex-col h-full justify-center",children:[" ",te.jsx("div",{className:"mb-4 text-[#11E5A3]",children:r.icon}),te.jsx("h3",{className:"text-xl font-semibold mb-2",children:r.title}),te.jsx("p",{className:"text-white/80 text-sm",children:r.description})]})})]},a))]}),te.jsxs("div",{className:"text-white pt-8 lg:pt-0 lg:pl-8 flex flex-col justify-center",children:[" ",te.jsxs("h2",{className:"text-3xl md:text-4xl font-bold mb-6",children:["Why Choose ",te.jsx("span",{className:"text-[#DCE667]",children:"SINEGY"})]}),te.jsx("p",{className:"text-lg mb-6 text-white/80",children:"We've built Malaysia's most advanced digital asset exchange with features designed for both beginners and professional traders."}),te.jsxs("div",{className:"space-y-6 mb-8",children:[te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(MJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"Advanced Trading Experience"}),te.jsx("p",{className:"text-white/70",children:"Professional-grade trading tools with real-time market data and advanced charting capabilities."})]})]}),te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(HJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"Secured asset custody with a regulated trustee"}),te.jsx("p",{className:"text-white/70",children:"Your digital assets and MYR funds are securely held by a regulated trustee, ensuring they’re protected at all times."})]})]}),te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(XJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"Fast, reliable transactions in Malaysian Ringgit (MYR)"}),te.jsx("p",{className:"text-white/70",children:"Trade digital assets quickly and efficiently in MYR, with a platform designed for speed and reliability."})]})]}),te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(wJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"User friendly interface"}),te.jsx("p",{className:"text-white/70",children:"Our intuitive platform makes trading accessible for beginners and advanced users alike, with quick customer support."})]})]})]}),te.jsx("button",{className:"bg-[#11E5A3] hover:bg-[#11E5A3] text-white font-semibold py-3 px-8 rounded-lg transition-colors",children:te.jsx("a",{href:"https://sinegy.com",target:"_blank",children:"Start Trading Now"})})]})]})})}),te.jsxs("section",{className:"relative w-full text-white py-16 md:py-24",children:[te.jsx(vX,{colors:["#11E5A3","#DCE667","#104DFF"],size:4,countDesktop:80,countTablet:60,countMobile:40,zIndex:-1,height:"100vh"}),";",te.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",children:te.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center",children:[te.jsxs("div",{className:"text-center lg:text-left",children:[te.jsx("h2",{className:"text-3xl md:text-4xl font-bold mb-4",children:"Experience Our App in Action"}),te.jsx("p",{className:"text-lg text-white/70 mb-8",children:"Watch a live demo of our app's seamless interface and powerful features. From intuitive navigation to real-time data, see how we've designed the ultimate mobile experience for you."}),te.jsxs("div",{className:"flex items-center justify-center md:justify-start gap-4",children:[te.jsx("a",{href:"https://apps.apple.com/app/sinegy-trade-btc-and-crypto/id6749148230",target:"_blank",rel:"noopener noreferrer",children:te.jsx("img",{src:eZ,alt:"Download on App Store",className:"w-40 h-auto cursor-pointer hover:opacity-80 transition"})}),te.jsx("a",{href:"https://play.google.com/store/search?q=sinegy&c=apps",target:"_blank",rel:"noopener noreferrer",children:te.jsx("img",{src:tZ,alt:"Download on Play Store",className:"w-40 h-auto cursor-pointer hover:opacity-80 transition"})})]})]}),te.jsx("div",{className:"w-full flex justify-center items-center p-4 md:p-0",children:te.jsx(CU,{width:333,height:682,videoSrc:nZ,showIsland:!0,islandWidth:110,islandHeight:30,frameColor:"black",frameDarkColor:"black",bezelColor:"neutral-100",screenRadius:35,shadow:!0,rounded:!0,contentClassName:"object-cover overflow-hidden",contentStyle:{borderRadius:"35px"},showCamera:!0,screenGradient:"#ff00ff,#00ffff",hoverAnimation:!0})})]})})]}),te.jsx(fJ,{events:s,title:"Affiliate Tiers Program",subtitle:"Be the first to enjoy the benefits",progressIndicator:!0,cardAlignment:"alternating",revealAnimation:"fade",cardVariant:"glass"}),te.jsx("section",{id:"team",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsxs("div",{className:"w-full max-w-7xl mx-auto px-4",children:[te.jsx("h2",{className:"text-3xl font-bold text-center text-[#11E5A3] mb-12",children:"Our Team"}),te.jsx("div",{className:"flex flex-row flex-wrap justify-center items-start gap-8 md:gap-4",children:t.map(r=>te.jsx(Gk,{name:"",title:"",handle:r.name,status:r.role,contactText:"Contact",avatarUrl:r.image,showUserInfo:!0,enableTilt:!0,enableMobileTilt:!1,onContactClick:()=>console.log(`Contact clicked for ${r.name}`)},r.id))})]})}),te.jsx("section",{id:"products",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"text-center",children:[te.jsx("h2",{className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8",children:"Products Section"}),te.jsxs("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",children:[te.jsxs("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white",children:[te.jsx("h3",{className:"text-xl font-semibold mb-4",children:"Trading Platform"}),te.jsx("p",{className:"text-white/80",children:"Advanced trading platform with real-time charts and analytics"})]}),te.jsxs("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white",children:[te.jsx("h3",{className:"text-xl font-semibold mb-4",children:"Wallet Services"}),te.jsx("p",{className:"text-white/80",children:"Secure digital wallet for storing your cryptocurrencies"})]}),te.jsxs("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white",children:[te.jsx("h3",{className:"text-xl font-semibold mb-4",children:"API Access"}),te.jsx("p",{className:"text-white/80",children:"Developer-friendly API for building custom trading solutions"})]})]})]})})}),te.jsx("section",{id:"organization",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"text-center",children:[te.jsx("h2",{className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8",children:"Organization Section"}),te.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",children:[te.jsxs("div",{className:"text-left",children:[te.jsx("h3",{className:"text-xl md:text-2xl font-semibold text-white mb-4",children:"About Our Organization"}),te.jsx("p",{className:"text-white/80 mb-6",children:"SINEGY is Malaysia's premier regulated digital asset exchange, providing secure and transparent cryptocurrency trading services to both retail and institutional investors. Licensed by the Securities Commission of Malaysia, we prioritize security, compliance, and user experience."}),te.jsx("button",{className:"bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg transition-colors",children:"Learn More"})]}),te.jsx("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-8",children:te.jsx("p",{className:"text-white/80",children:"Organization image, chart, or additional content goes here"})})]})]})})}),te.jsx("section",{id:"contact",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsx("div",{className:"w-full max-w-4xl mx-auto px-4",children:te.jsxs("div",{className:"text-center",children:[te.jsx("h2",{className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8",children:"Contact Us"}),te.jsx("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-8",children:te.jsxs("form",{className:"space-y-6",children:[te.jsxs("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6",children:[te.jsxs("div",{children:[te.jsx("label",{htmlFor:"name",className:"block text-white mb-2",children:"Name"}),te.jsx("input",{type:"text",id:"name",className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Your name"})]}),te.jsxs("div",{children:[te.jsx("label",{htmlFor:"email",className:"block text-white mb-2",children:"Email"}),te.jsx("input",{type:"email",id:"email",className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Your email"})]})]}),te.jsxs("div",{children:[te.jsx("label",{htmlFor:"subject",className:"block text-white mb-2",children:"Subject"}),te.jsx("input",{type:"text",id:"subject",className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Subject"})]}),te.jsxs("div",{children:[te.jsx("label",{htmlFor:"message",className:"block text-white mb-2",children:"Message"}),te.jsx("textarea",{id:"message",rows:5,className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Your message"})]}),te.jsx("button",{type:"submit",className:"w-full bg-[#11E5A3] hover:bg-[#0fc98c] text-white font-semibold py-3 px-6 rounded-lg transition-colors",children:"Send Message"})]})})]})})}),te.jsx("footer",{className:"w-full py-12 md:py-16",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"text-center border-t border-white/20 pt-8",children:[te.jsx("p",{className:"text-white/60",children:"© 2024 SINEGY. All rights reserved."}),te.jsxs("div",{className:"flex justify-center space-x-6 mt-4",children:[te.jsx("a",{href:"#",className:"text-white/60 hover:text-white transition-colors",children:"Privacy"}),te.jsx("a",{href:"#",className:"text-white/60 hover:text-white transition-colors",children:"Terms"}),te.jsx("a",{href:"#",className:"text-white/60 hover:text-white transition-colors",children:"Contact"})]})]})})})]})]})}BB.createRoot(document.getElementById("root")).render(te.jsx(K.StrictMode,{children:te.jsx(FI,{basename:"/corporate-website",children:te.jsxs(mI,{children:[te.jsx(xS,{path:"/",element:te.jsx(iZ,{})}),te.jsx(xS,{path:"/app",element:te.jsx(JI,{})})]})})}));
+ */const XJ=[["path",{d:"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",key:"1xq2db"}]],jJ=Sa("zap",XJ),YJ="/corporate-website/models/bitcoin.glb",qJ="/corporate-website/assets/kel-BYi7SzCd.png",WJ="/corporate-website/assets/shen-DJKTaP37.png",KJ="/corporate-website/assets/jack-BYRkACFh.png",JJ="/corporate-website/assets/ikmal-BGbFDIob.jpg",ZJ="/corporate-website/assets/staff1-CPkEBZac.png",wB="/corporate-website/assets/bitcoin-D_-CM3mV.png",RB="/corporate-website/assets/ethereum-B6eb1r9z.png",QJ="/corporate-website/assets/solana-CRp7GozI.png",$J="/corporate-website/assets/ripple-Dbv5I0ha.png",eZ="/corporate-website/assets/cardano-B38Ij7H1.png",tZ="/corporate-website/assets/appstore-CVyK0T4N.svg",nZ="/corporate-website/assets/playstore-XvR5LaEp.png",iZ="/corporate-website/assets/mobile_app_demo-L4E7ZPmf.MP4";function sZ(){const i=[{id:"home",label:"Home",href:"#home",icon:te.jsx(OJ,{})},{id:"team",label:"Team",href:"#team",icon:te.jsx(kJ,{})},{id:"products",label:"Products",href:"#products",icon:te.jsx(AJ,{})},{id:"organization",label:"Organization",href:"#organization",icon:te.jsx(SJ,{})},{id:"contact",label:"Contact",href:"#contact",icon:te.jsx(zJ,{})}],e=[{id:"1",content:te.jsx("img",{src:wB,alt:"Bitcoin",className:"h-[120px] w-[120px]"})},{id:"2",content:te.jsx("img",{src:RB,alt:"Ethereum",className:"h-[120px] w-[120px]"})},{id:"3",content:te.jsx("img",{src:QJ,alt:"Solana",className:"h-[120px] w-[120px]"})},{id:"4",content:te.jsx("img",{src:$J,alt:"XRP",className:"h-[120px] w-[120px]"})},{id:"5",content:te.jsx("img",{src:eZ,alt:"Cardano",className:"h-[120px] w-[120px]"})},{id:"6",content:te.jsx("img",{src:wB,alt:"Bitcoin",className:"h-[120px] w-[120px]"})},{id:"7",content:te.jsx("img",{src:RB,alt:"Ethereum",className:"h-[120px] w-[120px]"})}],t=[{id:"1",name:"Kelvyn Chuah",role:"Managing Director",image:qJ,bio:"..."},{id:"2",name:"Shen Hoe Yeoh",role:"Compliance Officer",image:WJ,bio:"..."},{id:"3",name:"Jack Chan",role:"DAX Lead",image:KJ,bio:"..."},{id:"4",name:"Ikmal Badrol",role:"Software Engineer",image:JJ,bio:"..."},{id:"5",name:"John Doe",role:"Software Engineer",image:ZJ,bio:"..."}],n=[{title:"Tiered KYC",description:"Choose Basic, Intermediate or Premium",icon:te.jsx(PJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"},{title:"Highly Customizable",description:"Choose as many (or as few) trading modules as desired from our comprehensive list",icon:te.jsx(CJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"},{title:"Real-time performance",description:"With live market data fed into a fast and responsive UI",icon:te.jsx(NJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"},{title:"Regulated & Secure",description:"Your funds and digital assets are handled in compliance with local regulations to ensure safety and transparency.",icon:te.jsx(DJ,{className:"w-6 h-6"}),color:"#11E5A3",glowColor:"#107667ed"}],s=[{year:"Step 1",title:"Verify Your Account",subtitle:"Referral Program Requirement",description:"Complete your KYC—only verified personal accounts can participate."},{year:"Step 2",title:"Share Your Link",subtitle:"How to Refer",description:"Grab your unique referral URL or code from the Rewards tab and send it to anyone."},{year:"Step 3",title:"Tier 1: Your Direct Referrals",subtitle:"Earning Structure",description:"You receive 25% of the trading fees generated by anyone who signs up with your link."},{year:"Step 4",title:"Tier 2: Referrals of Your Referrals",subtitle:"Earning Structure",description:"Earn 10% of the fees from trades made by users brought in by your Tier 1 connections."},{year:"Step 5",title:"Tier 3: Extended Network",subtitle:"Earning Structure",description:"Collect 5% of trading fees from one more level out—your Tier 2's referrals."},{year:"Step 6",title:"Automatic Payouts",subtitle:"Commission Details",description:"Commissions are credited in real time to your SINEGY wallet—no thresholds, no waiting."}];return te.jsxs("div",{className:"homepage",children:[te.jsx(gX,{colorStops:["#11E5A3","#1D262D","#11E5A3"],amplitude:1,blend:.5,speed:1}),te.jsxs("div",{className:"relative z-10 flex flex-col min-h-screen",children:[te.jsx("div",{className:"relative z-20 max-w-3xl mx-auto w-full px-4 py-6",children:te.jsx(hJ,{links:i,glowIntensity:5,backgroundColor:"rgba(255,255,255,0.08)",className:"border-[rgba(255,255,255,0.08)]",onLinkClick:r=>{const a=document.getElementById(r);a&&(a.scrollIntoView({behavior:"smooth"}),window.location.hash=r)}})}),te.jsx("header",{id:"home",className:"w-full min-h-screen flex items-center justify-center",children:te.jsxs("div",{className:"w-full flex flex-col items-center",children:[te.jsx(Ik,{url:YJ,width:360,height:360}),te.jsx(sJ,{baseColor:"rgba(255, 255, 255, 1)",shineColor:"#DCE667",speed:5,className:"text-[90px] font-bold mb-4",children:"sinegy"}),te.jsx("p",{className:"text-lg md:text-xl text-white/80 max-w-4xl text-center px-4",children:"SINEGY is a Malaysian homegrown, fully regulated digital asset exchange (DAX), committed to delivering secure, transparent and accessible cryptocurrency trading. With oversight by the Securities Commission of Malaysia, we serve both retail and institutional clients with robust infrastructure, intuitive tools, and support for fiat-on-ramps in MYR. Built for security, simplicity, and trust, SINEGY empowers users to trade major digital assets with confidence."}),te.jsx("h2",{className:"text-3xl font-bold text-center text-[#11E5A3] mt-12",children:"Listed Coins: "}),te.jsx("div",{className:"w-full overflow-x-hidden mt-6",children:te.jsx(pJ,{items:e,speed:40,height:"150px",enableBlur:!1,blurIntensity:2,pauseOnHover:!0,showGridBackground:!0,onItemClick:r=>console.log("Clicked:",r.id)})})]})}),te.jsx("section",{className:"w-full py-16 md:py-24",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch",children:[" ",te.jsxs("div",{className:"grid grid-cols-2 gap-6 h-full",children:[" ",n.map((r,a)=>te.jsxs("div",{className:"w-full h-full",children:[" ",te.jsx(rJ,{color:r.color,glowColor:r.glowColor,followMouse:!0,hoverOnly:!1,intensity:80,backgroundColor:"rgba(255,255,255,0.08)",width:"100%",height:"100%",borderRadius:"1.5rem",className:"h-full",children:te.jsxs("div",{className:"p-6 text-white flex flex-col h-full justify-center",children:[" ",te.jsx("div",{className:"mb-4 text-[#11E5A3]",children:r.icon}),te.jsx("h3",{className:"text-xl font-semibold mb-2",children:r.title}),te.jsx("p",{className:"text-white/80 text-sm",children:r.description})]})})]},a))]}),te.jsxs("div",{className:"text-white pt-8 lg:pt-0 lg:pl-8 flex flex-col justify-center",children:[" ",te.jsxs("h2",{className:"text-3xl md:text-4xl font-bold mb-6",children:["Why Choose ",te.jsx("span",{className:"text-[#DCE667]",children:"SINEGY"})]}),te.jsx("p",{className:"text-lg mb-6 text-white/80",children:"We've built Malaysia's most advanced digital asset exchange with features designed for both beginners and professional traders."}),te.jsxs("div",{className:"space-y-6 mb-8",children:[te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(EJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"Advanced Trading Experience"}),te.jsx("p",{className:"text-white/70",children:"Professional-grade trading tools with real-time market data and advanced charting capabilities."})]})]}),te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(GJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"Secured asset custody with a regulated trustee"}),te.jsx("p",{className:"text-white/70",children:"Your digital assets and MYR funds are securely held by a regulated trustee, ensuring they’re protected at all times."})]})]}),te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(jJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"Fast, reliable transactions in Malaysian Ringgit (MYR)"}),te.jsx("p",{className:"text-white/70",children:"Trade digital assets quickly and efficiently in MYR, with a platform designed for speed and reliability."})]})]}),te.jsxs("div",{className:"flex items-start",children:[te.jsx("div",{className:"bg-[#11E5A3] rounded-full p-2 mr-4 flex-shrink-0",children:te.jsx(RJ,{className:"w-5 h-5 text-white"})}),te.jsxs("div",{children:[te.jsx("h3",{className:"font-semibold text-lg mb-2",children:"User friendly interface"}),te.jsx("p",{className:"text-white/70",children:"Our intuitive platform makes trading accessible for beginners and advanced users alike, with quick customer support."})]})]})]}),te.jsx(dJ,{onClick:()=>window.open("https://sinegy.com","_blank"),children:"Start Trading Now"})]})]})})}),te.jsxs("section",{className:"relative w-full text-white py-16 md:py-24",children:[te.jsx(vX,{colors:["#11E5A3","#DCE667","#104DFF"],size:4,countDesktop:80,countTablet:60,countMobile:40,zIndex:-1,height:"100vh"}),";",te.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",children:te.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center",children:[te.jsxs("div",{className:"text-center lg:text-left",children:[te.jsx("h2",{className:"text-3xl md:text-4xl font-bold mb-4",children:"Experience Our App in Action"}),te.jsx("p",{className:"text-lg text-white/70 mb-8",children:"Watch a live demo of our app's seamless interface and powerful features. From intuitive navigation to real-time data, see how we've designed the ultimate mobile experience for you."}),te.jsxs("div",{className:"flex items-center justify-center md:justify-start gap-4",children:[te.jsx("a",{href:"https://apps.apple.com/app/sinegy-trade-btc-and-crypto/id6749148230",target:"_blank",rel:"noopener noreferrer",children:te.jsx("img",{src:tZ,alt:"Download on App Store",className:"w-40 h-auto cursor-pointer hover:opacity-80 transition"})}),te.jsx("a",{href:"https://play.google.com/store/search?q=sinegy&c=apps",target:"_blank",rel:"noopener noreferrer",children:te.jsx("img",{src:nZ,alt:"Download on Play Store",className:"w-40 h-auto cursor-pointer hover:opacity-80 transition"})})]})]}),te.jsx("div",{className:"w-full flex justify-center items-center p-4 md:p-0",children:te.jsx(CU,{width:333,height:682,videoSrc:iZ,showIsland:!0,islandWidth:110,islandHeight:30,frameColor:"black",frameDarkColor:"black",bezelColor:"neutral-100",screenRadius:35,shadow:!0,rounded:!0,contentClassName:"object-cover overflow-hidden",contentStyle:{borderRadius:"35px"},showCamera:!0,screenGradient:"#ff00ff,#00ffff",hoverAnimation:!0})})]})})]}),te.jsx(fJ,{events:s,title:"Affiliate Tiers Program",subtitle:"Be the first to enjoy the benefits",progressIndicator:!0,cardAlignment:"alternating",revealAnimation:"fade",cardVariant:"glass"}),te.jsx("section",{id:"team",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsxs("div",{className:"w-full max-w-7xl mx-auto px-4",children:[te.jsx("h2",{className:"text-3xl font-bold text-center text-[#11E5A3] mb-12",children:"Our Team"}),te.jsx("div",{className:"flex flex-row flex-wrap justify-center items-start gap-8 md:gap-4",children:t.map(r=>te.jsx(Gk,{name:"",title:"",handle:r.name,status:r.role,contactText:"Contact",avatarUrl:r.image,showUserInfo:!0,enableTilt:!0,enableMobileTilt:!1,onContactClick:()=>console.log(`Contact clicked for ${r.name}`)},r.id))})]})}),te.jsx("section",{id:"products",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"text-center",children:[te.jsx("h2",{className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8",children:"Products Section"}),te.jsxs("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",children:[te.jsxs("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white",children:[te.jsx("h3",{className:"text-xl font-semibold mb-4",children:"Trading Platform"}),te.jsx("p",{className:"text-white/80",children:"Advanced trading platform with real-time charts and analytics"})]}),te.jsxs("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white",children:[te.jsx("h3",{className:"text-xl font-semibold mb-4",children:"Wallet Services"}),te.jsx("p",{className:"text-white/80",children:"Secure digital wallet for storing your cryptocurrencies"})]}),te.jsxs("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white",children:[te.jsx("h3",{className:"text-xl font-semibold mb-4",children:"API Access"}),te.jsx("p",{className:"text-white/80",children:"Developer-friendly API for building custom trading solutions"})]})]})]})})}),te.jsx("section",{id:"organization",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"text-center",children:[te.jsx("h2",{className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8",children:"Organization Section"}),te.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",children:[te.jsxs("div",{className:"text-left",children:[te.jsx("h3",{className:"text-xl md:text-2xl font-semibold text-white mb-4",children:"About Our Organization"}),te.jsx("p",{className:"text-white/80 mb-6",children:"SINEGY is Malaysia's premier regulated digital asset exchange, providing secure and transparent cryptocurrency trading services to both retail and institutional investors. Licensed by the Securities Commission of Malaysia, we prioritize security, compliance, and user experience."}),te.jsx("button",{className:"bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg transition-colors",children:"Learn More"})]}),te.jsx("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-8",children:te.jsx("p",{className:"text-white/80",children:"Organization image, chart, or additional content goes here"})})]})]})})}),te.jsx("section",{id:"contact",className:"w-full py-16 md:py-24 min-h-screen flex items-center",children:te.jsx("div",{className:"w-full max-w-4xl mx-auto px-4",children:te.jsxs("div",{className:"text-center",children:[te.jsx("h2",{className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8",children:"Contact Us"}),te.jsx("div",{className:"bg-white/10 backdrop-blur-sm rounded-lg p-8",children:te.jsxs("form",{className:"space-y-6",children:[te.jsxs("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6",children:[te.jsxs("div",{children:[te.jsx("label",{htmlFor:"name",className:"block text-white mb-2",children:"Name"}),te.jsx("input",{type:"text",id:"name",className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Your name"})]}),te.jsxs("div",{children:[te.jsx("label",{htmlFor:"email",className:"block text-white mb-2",children:"Email"}),te.jsx("input",{type:"email",id:"email",className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Your email"})]})]}),te.jsxs("div",{children:[te.jsx("label",{htmlFor:"subject",className:"block text-white mb-2",children:"Subject"}),te.jsx("input",{type:"text",id:"subject",className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Subject"})]}),te.jsxs("div",{children:[te.jsx("label",{htmlFor:"message",className:"block text-white mb-2",children:"Message"}),te.jsx("textarea",{id:"message",rows:5,className:"w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#11E5A3]",placeholder:"Your message"})]}),te.jsx("button",{type:"submit",className:"w-full bg-[#11E5A3] hover:bg-[#0fc98c] text-white font-semibold py-3 px-6 rounded-lg transition-colors",children:"Send Message"})]})})]})})}),te.jsx("footer",{className:"w-full py-12 md:py-16",children:te.jsx("div",{className:"w-full max-w-7xl mx-auto px-4",children:te.jsxs("div",{className:"text-center border-t border-white/20 pt-8",children:[te.jsx("p",{className:"text-white/60",children:"Copyright © 2025 by SINEGY DAX Sdn.Bhd. © (1424796-U)"}),te.jsx("p",{className:"text-white/30",children:"All rights reserved."}),te.jsxs("div",{className:"flex justify-center space-x-6 mt-4",children:[te.jsx("a",{href:"https://exchange.sinegy.com/privacy-policy",className:"text-white/60 hover:text-white transition-colors",children:"Privacy Policy"}),te.jsx("a",{href:"https://exchange.sinegy.com/terms-of-service",className:"text-white/60 hover:text-white transition-colors",children:"Terms Of Service"}),te.jsx("a",{href:"https://sinegyexchange.zendesk.com/hc/en-us/requests/new",className:"text-white/60 hover:text-white transition-colors",children:"Support"})]})]})})})]})]})}BB.createRoot(document.getElementById("root")).render(te.jsx(K.StrictMode,{children:te.jsx(FI,{basename:"/corporate-website",children:te.jsxs(mI,{children:[te.jsx(xS,{path:"/",element:te.jsx(sZ,{})}),te.jsx(xS,{path:"/app",element:te.jsx(JI,{})})]})})}));
