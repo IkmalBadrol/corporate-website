@@ -20,7 +20,7 @@ import { DynamicNavigation } from "@/components/lightswind/dynamic-navigation";
 // import sinegyLogo from '../assets/sinegy_transparent.png'; 
 import {SlidingLogoMarquee,  type SlidingLogoMarqueeItem } from "@/components/lightswind/sliding-logo-marquee";
 import './HomePage.css';
-import { Home, Phone, Users, Briefcase, Building, Shield, Zap, Globe, BarChart3 } from 'lucide-react';
+import { Layers, Columns3Cog, History, Handshake, Home, Phone, Users, Briefcase, Building, Shield, Zap, Globe, BarChart3 } from 'lucide-react';
 import "../components/lightswind.css"
 
 import bitcoinModel from '/models/bitcoin.glb?url';
@@ -33,11 +33,11 @@ import ikmalImg from '/src/assets/ikmal.jpg';
 import staff1Img from '/src/assets/staff1.png';
 
 // Logo images
-import bitcoinIcon from '/src/assets/bitcoin_icon.png';
-import ethIcon from '/src/assets/eth.png';
-import solIcon from '/src/assets/sol.png';
-import xrpIcon from '/src/assets/xrp.png';
-import adaIcon from '/src/assets/ada.png';
+import bitcoinIcon from '/src/assets/bitcoin.png';
+import ethIcon from '/src/assets/ethereum.png';
+import solIcon from '/src/assets/solana.png';
+import xrpIcon from '/src/assets/ripple.png';
+import adaIcon from '/src/assets/cardano.png';  
 
 // App store images
 import appStoreIcon from '/src/assets/appstore.svg';
@@ -105,30 +105,30 @@ const teamMembers = [
 
   const gradientCards = [
     {
-      title: "Premium Trading",
-      description: "Access advanced trading tools and exclusive market insights",
-      icon: <Home className="w-6 h-6" />,
+      title: "Tiered KYC",
+      description: "Choose Basic, Intermediate or Premium",
+      icon: <Layers className="w-6 h-6" />,
       color: "#11E5A3",
       glowColor: "#107667ed"
     },
     {
-      title: "Secure Storage",
-      description: "Bank-level security for your digital assets with multi-sig protection",
-      icon: <Home className="w-6 h-6" />,
+      title: "Highly Customizable",
+      description: "Choose as many (or as few) trading modules as desired from our comprehensive list",
+      icon: <Columns3Cog className="w-6 h-6" />,
       color: "#11E5A3",
       glowColor: "#107667ed"
     },
     {
-      title: "Fast Execution",
-      description: "Lightning-fast trade execution with minimal latency",
-      icon: <Home className="w-6 h-6" />,
+      title: "Real-time performance",
+      description: "With live market data fed into a fast and responsive UI",
+      icon: <History className="w-6 h-6" />,
       color: "#11E5A3",
       glowColor: "#107667ed"
     },
     {
-      title: "Award Winning",
-      description: "Recognized as Malaysia's most innovative crypto platform",
-      icon: <Home className="w-6 h-6" />,
+      title: "Regulated & Secure",
+      description: "Your funds and digital assets are handled in compliance with local regulations to ensure safety and transparency.",
+      icon: <Handshake className="w-6 h-6" />,
       color: "#11E5A3",
       glowColor: "#107667ed"
     }
@@ -224,7 +224,7 @@ const teamMembers = [
             fiat-on-ramps in MYR. Built for security, simplicity, and trust, SINEGY empowers 
             users to trade major digital assets with confidence.</p>
 
-            <h3 className="text-center text-[#11E5A3] mt-12">Our Coins: </h3>
+            <h2 className="text-3xl font-bold text-center text-[#11E5A3] mt-12">Listed Coins: </h2>
             <div className="w-full overflow-x-hidden mt-6">
               <SlidingLogoMarquee
                 items={logos}
@@ -274,7 +274,7 @@ const teamMembers = [
               {/* Second Column - Text Content */}
               <div className="text-white pt-8 lg:pt-0 lg:pl-8 flex flex-col justify-center"> {/* Added flex and justify-center */}
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Why <span className="text-[#11E5A3]">SINEGY</span> Stands Out
+                  Why Choose <span className="text-[#DCE667]">SINEGY</span>
                 </h2>
                 <p className="text-lg mb-6 text-white/80">
                   We've built Malaysia's most advanced digital asset exchange with features designed for both beginners and professional traders.
@@ -296,8 +296,8 @@ const teamMembers = [
                       <Shield className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-2">Military-Grade Security</h3>
-                      <p className="text-white/70">Multi-signature cold wallets, insurance protection, and 24/7 monitoring to keep your assets safe.</p>
+                      <h3 className="font-semibold text-lg mb-2">Secured asset custody with a regulated trustee</h3>
+                      <p className="text-white/70">Your digital assets and MYR funds are securely held by a regulated trustee, ensuring they’re protected at all times.</p>
                     </div>
                   </div>
                   
@@ -306,8 +306,8 @@ const teamMembers = [
                       <Zap className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-2">Lightning Fast Execution</h3>
-                      <p className="text-white/70">High-performance matching engine capable of processing thousands of transactions per second.</p>
+                      <h3 className="font-semibold text-lg mb-2">Fast, reliable transactions in Malaysian Ringgit (MYR)</h3>
+                      <p className="text-white/70">Trade digital assets quickly and efficiently in MYR, with a platform designed for speed and reliability.</p>
                     </div>
                   </div>
 
@@ -316,8 +316,8 @@ const teamMembers = [
                       <Globe className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-2">Global Liquidity</h3>
-                      <p className="text-white/70">Access to deep liquidity pools and global markets with competitive pricing.</p>
+                      <h3 className="font-semibold text-lg mb-2">User friendly interface</h3>
+                      <p className="text-white/70">Our intuitive platform makes trading accessible for beginners and advanced users alike, with quick customer support.</p>
                     </div>
                   </div>
                 </div>
