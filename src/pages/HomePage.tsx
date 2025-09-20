@@ -42,6 +42,7 @@ import adaIcon from '/src/assets/ada.png';
 // App store images
 import appStoreIcon from '/src/assets/appstore.svg';
 import playStoreIcon from '/src/assets/playstore.png';
+import mobileDemo from 'src/assets/mobile_app_demo.mp4';
 
 function HomePage() {
 
@@ -384,7 +385,7 @@ const teamMembers = [
                 <Iphone16Pro
                   width={333}
                   height={682}
-                  videoSrc="src/assets/mobile_app_demo.MP4"
+                  videoSrc={mobileDemo}
                   showIsland={true}
                   islandWidth={110}
                   islandHeight={30}

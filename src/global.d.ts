@@ -2,6 +2,7 @@ export { };
 
 declare module '*.glb';
 declare module '*.png';
+declare module '*.mp4';
 
 declare module 'meshline' {
   export const MeshLineGeometry: any;
