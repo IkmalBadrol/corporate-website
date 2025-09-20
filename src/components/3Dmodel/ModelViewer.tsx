@@ -143,9 +143,9 @@ const ModelInner: FC<ModelInnerProps> = ({
     g.updateWorldMatrix(true, true);
 
     const sphere = new THREE.Box3().setFromObject(g).getBoundingSphere(new THREE.Sphere());
-    // const s = 1 / (sphere.radius * 2);
+    const s = 1 / (sphere.radius * 2) * 5;
     g.position.set(-sphere.center.x, -sphere.center.y, -sphere.center.z);
-    // g.scale.setScalar(s);
+    g.scale.setScalar(s);
 
     g.traverse((o: any) => {
       if (o.isMesh) {
@@ -396,7 +396,7 @@ const ModelViewer: FC<ViewerProps> = ({
   fillLightIntensity = 0.5,
   rimLightIntensity = 0.8,
   environmentPreset = 'forest',
-  autoFrame = false,
+  autoFrame = true,
   placeholderSrc,
   // showScreenshotButton = true,
   fadeIn = false,
