@@ -1,5 +1,5 @@
 // import Aurora from "../components/backgrounds/Aurora";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ModelViewer from '../components/3Dmodel/ModelViewer';
 import ProfileCard  from '../components/card/ProfileCard';
 // import StarBorder   from '../components/buttons/StarBorder';
