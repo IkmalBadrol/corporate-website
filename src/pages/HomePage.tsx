@@ -1,4 +1,5 @@
 // import Aurora from "../components/backgrounds/Aurora";
+import React, { useState } from 'react';
 import ModelViewer from '../components/3Dmodel/ModelViewer';
 import ProfileCard  from '../components/card/ProfileCard';
 // import StarBorder   from '../components/buttons/StarBorder';
@@ -13,6 +14,8 @@ import { Iphone16Pro } from '@/components/lightswind/Iphone16Pro';
 import { ScrollTimeline } from "@/components/lightswind/scroll-timeline";
 import { DynamicNavigation } from "@/components/lightswind/dynamic-navigation";
 import { TrialButton } from '@/components/lightswind/trial-button';
+import MagicLoader from '@/components/lightswind/magic-loader';
+
 // import OrbitCard from '../components/lightswind/orbit-card';
 // import TeamCarousel from  '../components/lightswind/team-carousel';
 // import SparkleNavbar from  '../components/lightswind/sparkle-navbar';
@@ -44,6 +47,13 @@ import adaIcon from '/src/assets/cardano.png';
 import appStoreIcon from '/src/assets/appstore.svg';
 import playStoreIcon from '/src/assets/playstore.png';
 import mobileDemo from '/src/assets/mobile_app_demo.mp4';
+
+// Social media images
+import facebookIcon from "../assets/facebook.png";
+import twitterIcon from "../assets/twitter.png";
+import instagramIcon from "../assets/instagram.png";
+import linkedinIcon from "../assets/linkedin.png";
+
 
 function HomePage() {
 
@@ -174,6 +184,8 @@ const teamMembers = [
     },
   ];
 
+  const [isModelLoading, setIsModelLoading] = useState(true);
+
   return (
     <div className="homepage">
       <AuroraShader
@@ -203,11 +215,27 @@ const teamMembers = [
         {/* Home Section */}
         <header id="home" className="w-full min-h-screen flex items-center justify-center">
           <div className="w-full flex flex-col items-center">
-            <ModelViewer
-              url={bitcoinModel} // Use the imported variable
-              width={360}
-              height={360}
-            />
+
+            {isModelLoading && (
+              <div className="w-[360px] h-[360px] flex flex-col items-center justify-center">
+                <MagicLoader size={150} particleCount={1} speed={0.7} />
+                <p className="text-white/30 mt-4">
+                  Loading 3D Model...
+                </p>
+              </div>
+            )}
+            <div style={{ 
+              visibility: isModelLoading ? 'hidden' : 'visible',
+              height: isModelLoading ? 0 : 'auto', 
+              overflow: 'hidden' 
+            }}>
+              <ModelViewer
+                url={bitcoinModel} 
+                width={360}
+                height={360}
+                onModelLoaded={() => setIsModelLoading(false)}
+              />
+            </div>
             <ShinyText
               baseColor="rgba(255, 255, 255, 1)"
               shineColor="#DCE667"
@@ -561,21 +589,77 @@ const teamMembers = [
         {/* Footer Section */}
         <footer className="w-full py-12 md:py-16">
           <div className="w-full max-w-7xl mx-auto px-4">
+            
+            {/* Top section with Products, Support, and Socials */}
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 text-center md:text-left mb-12 items-start">
+              {/* Products Column */}
+              <div className="md:col-start-1 lg:col-start-1">
+                <h3 className="font-bold text-lg text-white mb-4">Products</h3>
+                <ul className="space-y-3">
+                  <li><a href="https://exchange.sinegy.com/currencies" target="_blank" className="text-white/60 hover:text-white transition-colors">Assets</a></li>
+                  <li><a href="http://exchange.sinegy.com/asset-status" target="_blank" className="text-white/60 hover:text-white transition-colors">Asset Status</a></li>
+                  <li><a href="https://exchange.sinegy.com/trade/BTC-MYR" target="_blank" className="text-white/60 hover:text-white transition-colors">Trade</a></li>
+                </ul>
+              </div>
+
+              {/* Support Column */}
+              <div className="md:col-start-2 lg:col-start-2">
+                <h3 className="font-bold text-lg text-white mb-4">Support</h3>
+                <ul className="space-y-3">
+                  <li><a href="https://exchange.sinegy.com/fees" target="_blank" className="text-white/60 hover:text-white transition-colors">Exchange fees</a></li>
+                  <li><a href="https://exchange.sinegy.com/exchange-documentation" target="_blank" className="text-white/60 hover:text-white transition-colors">API Documentation</a></li>
+                  <li><a href="https://sinegyexchange.zendesk.com/hc/en-us" target="_blank" className="text-white/60 hover:text-white transition-colors">FAQ</a></li>
+                  <li><a href="https://exchange.sinegy.com/terms-of-service" target="_blank" className="text-white/60 hover:text-white transition-colors">Terms of Service</a></li>
+                  <li><a href="https://exchange.sinegy.com/privacy-policy" target="_blank" className="text-white/60 hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="https://sinegyexchange.zendesk.com/hc/en-us/requests/new" target="_blank" className="text-white/60 hover:text-white transition-colors">Support</a></li>
+                </ul>
+              </div>
+
+              {/* Socials Column */}
+              <div className="md:col-start-3 lg:col-start-3">
+                <h3 className="font-bold text-lg text-white mb-4">Socials</h3>
+                <div className="flex flex-col items-center md:items-start space-y-4">
+                  <a href="https://web.facebook.com/SinegyMY?_rdc=1&_rdr#" target="_blank"aria-label="Facebook">
+                    <img src={facebookIcon} alt="Facebook" className="w-6 h-6 hover:opacity-80" />
+                  </a>
+                  <a href="https://x.com/SinegyMY" target="_blank" aria-label="Twitter">
+                    <img src={twitterIcon} alt="Twitter" className="w-6 h-6 hover:opacity-80" />
+                  </a>
+                  <a href="https://www.instagram.com/sinegydotcom/" target="_blank" aria-label="Instagram">
+                    <img src={instagramIcon} alt="Instagram" className="w-6 h-6 hover:opacity-80" />
+                  </a>
+                  <a href="https://www.linkedin.com/company/sinegy" target="_blank" aria-label="LinkedIn">
+                    <img src={linkedinIcon} alt="LinkedIn" className="w-6 h-6 hover:opacity-80" />
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Copyright Notice */}
             <div className="text-center border-t border-white/20 pt-8">
-              <p className="text-white/60">
+              <p className="text-white/60 text-sm">
                 Copyright © 2025 by SINEGY DAX Sdn.Bhd. © (1424796-U)
               </p>
-              <p className="text-white/30">
-                All rights reserved.
+              <p className="text-white/50 text-sm mt-1">
+                All Rights Reserved.
               </p>
-              <div className="flex justify-center space-x-6 mt-4">
-                <a href="https://exchange.sinegy.com/privacy-policy" className="text-white/60 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="https://exchange.sinegy.com/terms-of-service" className="text-white/60 hover:text-white transition-colors">Terms Of Service</a>
-                <a href="https://sinegyexchange.zendesk.com/hc/en-us/requests/new" className="text-white/60 hover:text-white transition-colors">Support</a>
-              </div>
+            </div>
+
+            {/* Disclaimer Section */}
+            <div className="mt-8 text-xs text-white/50 text-center space-y-4 max-w-5xl mx-auto">
+                <p>
+                    Disclaimer: The purchase of digital assets is conducted through SINEGY DAX Sdn.Bhd. © (1424796-U). By accessing this site, you agree to be bound by its <a href="#" className="underline hover:text-white">Terms of Service</a> and <a href="#" className="underline hover:text-white">Privacy Policy</a>.
+                </p>
+                <p>
+                    Digital assets are not currently backed nor supported by any government or central bank. The value of digital asset is determined by economy of supply and demand, and they are more volatile than traditional assets. Trading in digital assets comes with significant risks, including volatile market price swings or flash crashes, market manipulation, and cybersecurity risks. Digital asset trading requires knowledge of digital asset markets. In attempting to profit through digital asset trading, you must compete with traders worldwide. You should have appropriate knowledge and experience before engaging in substantial digital asset trading.
+                </p>
+                <p>
+                    For more information please check out the <a href="#" className="text-[#67e8f9] underline hover:text-white">Securities Commission Malaysia’s Investor Alert List</a>.
+                </p>
             </div>
           </div>
-        </footer> 
+        </footer>
       </div>
     </div>
   );
