@@ -15,7 +15,7 @@ import { ScrollTimeline } from "@/components/lightswind/scroll-timeline";
 import { DynamicNavigation } from "@/components/lightswind/dynamic-navigation";
 import { TrialButton } from '@/components/lightswind/trial-button';
 import MagicLoader from '@/components/lightswind/magic-loader';
-
+import { TrustedUsers } from '@/components/lightswind/trusted-user';
 // import OrbitCard from '../components/lightswind/orbit-card';
 // import TeamCarousel from  '../components/lightswind/team-carousel';
 // import SparkleNavbar from  '../components/lightswind/sparkle-navbar';
@@ -360,7 +360,8 @@ const teamMembers = [
             </div>
           </div>
         </section>
-
+        
+        {/* Mobile Demo Section */}
         <section className="relative w-full text-white py-16 md:py-24">
           <ParticlesBackground
             colors={['#11E5A3', '#DCE667', '#104DFF']}
@@ -436,6 +437,27 @@ const teamMembers = [
           </div>
         </section>
 
+        {/* Trusted User */}
+        <TrustedUsers
+          avatars={[
+            './src/assets/ikmal.jpg',
+            './src/assets/jack.png',
+            './src/assets/shen.png',
+            './src/assets/kel.png',
+          ]}
+          rating={5}
+          totalUsersText={10000}
+          caption="Loved by"
+          starColorClass="text-yellow-400"
+          ringColors={[
+            "ring-pink-500",
+            "ring-green-500",
+            "ring-blue-500",
+            "ring-purple-500"
+          ]}
+        />
+
+        {/* Affiliate */}
         <ScrollTimeline 
           events={events}
           title="Affiliate Tiers Program"
