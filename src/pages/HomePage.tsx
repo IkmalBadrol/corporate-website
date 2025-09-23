@@ -1,7 +1,7 @@
 // import Aurora from "../components/backgrounds/Aurora";
 import { useState } from 'react';
 import ModelViewer from '../components/3Dmodel/ModelViewer';
-import ProfileCard  from '../components/card/ProfileCard';
+// import ProfileCard  from '../components/card/ProfileCard';
 // import StarBorder   from '../components/buttons/StarBorder';
 // import CardSwap, { Card } from '../components/card/CardSwap'
 // import SpotlightCard from '../components/card/SpotlightCard';
@@ -30,11 +30,11 @@ import "../components/lightswind.css"
 import bitcoinModel from '/models/bitcoin.glb?url';
 
 // Team member images
-import kelvynImg from '/src/assets/kel.png';
-import shenImg from '/src/assets/shen.png';
-import jackImg from '/src/assets/jack.png';
-import ikmalImg from '/src/assets/ikmal.jpg';
-import staff1Img from '/src/assets/staff1.png';
+// import kelvynImg from '/src/assets/kel.png';
+// import shenImg from '/src/assets/shen.png';
+// import jackImg from '/src/assets/jack.png';
+// import ikmalImg from '/src/assets/ikmal.jpg';
+// import staff1Img from '/src/assets/staff1.png';
 
 // Logo images
 import bitcoinIcon from '/src/assets/bitcoin.png';
@@ -75,13 +75,13 @@ const logos: SlidingLogoMarqueeItem[] = [
     { id: "7", content: <img src={ethIcon} alt="Ethereum" className="h-[120px] w-[120px]" /> },
 ];
 
-const teamMembers = [
-    { id: "1", name: "Kelvyn Chuah", role: "Managing Director", image: kelvynImg, bio: "..." },
-    { id: "2", name: "Shen Hoe Yeoh", role: "Compliance Officer", image: shenImg, bio: "..." },
-    { id: "3", name: "Jack Chan", role: "DAX Lead", image: jackImg, bio: "..." },
-    { id: "4", name: "Ikmal Badrol", role: "Software Engineer", image: ikmalImg, bio: "..." },
-    { id: "5", name: "John Doe", role: "Software Engineer", image: staff1Img, bio: "..." }
-];
+// const teamMembers = [
+//     { id: "1", name: "Kelvyn Chuah", role: "Managing Director", image: kelvynImg, bio: "..." },
+//     { id: "2", name: "Shen Hoe Yeoh", role: "Compliance Officer", image: shenImg, bio: "..." },
+//     { id: "3", name: "Jack Chan", role: "DAX Lead", image: jackImg, bio: "..." },
+//     { id: "4", name: "Ikmal Badrol", role: "Software Engineer", image: ikmalImg, bio: "..." },
+//     { id: "5", name: "John Doe", role: "Software Engineer", image: staff1Img, bio: "..." }
+// ];
 
   // const orbitCards = [
   //   {
@@ -242,7 +242,7 @@ const teamMembers = [
               speed={5}
               className="text-[90px] font-bold mb-4"
             >
-              sinegy
+              exchange
             </ShinyText>
 
             <p className="text-lg md:text-xl text-white/80 max-w-4xl text-center px-4">
@@ -303,7 +303,7 @@ const teamMembers = [
               {/* Second Column - Text Content */}
               <div className="text-white pt-8 lg:pt-0 lg:pl-8 flex flex-col justify-center"> {/* Added flex and justify-center */}
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Why Choose <span className="text-[#DCE667]">SINEGY</span>
+                  Why Choose <span className="text-[#DCE667]">EXCHANGE</span>
                 </h2>
                 <p className="text-lg mb-6 text-white/80">
                   We've built Malaysia's most advanced digital asset exchange with features designed for both beginners and professional traders.
@@ -416,7 +416,7 @@ const teamMembers = [
                   width={333}
                   height={682}
                   videoSrc={mobileDemo}
-                  showIsland={true}
+                  showIsland={false}
                   islandWidth={110}
                   islandHeight={30}
                   frameColor="black"
@@ -427,7 +427,7 @@ const teamMembers = [
                   rounded={true}
                   contentClassName="object-cover overflow-hidden"
                   contentStyle={{ borderRadius: '35px' }}
-                  showCamera={true}
+                  showCamera={false}
                   screenGradient="#ff00ff,#00ffff"
                   hoverAnimation={true}
                 />
@@ -440,10 +440,10 @@ const teamMembers = [
         {/* Trusted User */}
         <TrustedUsers
           avatars={[
-            './src/assets/ikmal.jpg',
-            './src/assets/jack.png',
-            './src/assets/shen.png',
-            './src/assets/kel.png',
+            // './src/assets/ikmal.jpg',
+            // './src/assets/jack.png',
+            // './src/assets/shen.png',
+            // './src/assets/kel.png',
           ]}
           rating={5}
           totalUsersText={10000}
@@ -469,7 +469,7 @@ const teamMembers = [
         />
 
         {/* Team Section */}
-        <section id="team" className="w-full py-16 md:py-24 min-h-screen flex items-center">
+        {/* <section id="team" className="w-full py-16 md:py-24 min-h-screen flex items-center">
           <div className="w-full max-w-7xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-[#11E5A3] mb-12">Our Team</h2>
             <div className="flex flex-row flex-wrap justify-center items-start gap-8 md:gap-4">
@@ -490,10 +490,10 @@ const teamMembers = [
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Products Section */}
-        <section id="products" className="w-full py-16 md:py-24 min-h-screen flex items-center">
+        {/* <section id="products" className="w-full py-16 md:py-24 min-h-screen flex items-center">
           <div className="w-full max-w-7xl mx-auto px-4">
             <div className="text-center">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8">
@@ -515,10 +515,10 @@ const teamMembers = [
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Organization Section */}
-        <section id="organization" className="w-full py-16 md:py-24 min-h-screen flex items-center">
+        {/* <section id="organization" className="w-full py-16 md:py-24 min-h-screen flex items-center">
           <div className="w-full max-w-7xl mx-auto px-4">
             <div className="text-center">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8">
@@ -547,10 +547,10 @@ const teamMembers = [
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Contact Section */}
-        <section id="contact" className="w-full py-16 md:py-24 min-h-screen flex items-center">
+        {/* <section id="contact" className="w-full py-16 md:py-24 min-h-screen flex items-center">
           <div className="w-full max-w-4xl mx-auto px-4">
             <div className="text-center">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8">
@@ -606,7 +606,7 @@ const teamMembers = [
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Footer Section */}
         <footer className="w-full py-12 md:py-16">
